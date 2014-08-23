@@ -1,0 +1,13 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+
+{% if list %}
+    <ul>
+    {% for poll in list %}
+        <li><a href="/polls/{{ poll.id }}/">{{ poll.x }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}

@@ -1,6 +1,6 @@
-import getpass, json
+import getpass
+from common.database.Database import Database
 from loader.Jira import Jira
-from database.Database import Database
 
 
 def isAnyInstance(obj, *types):

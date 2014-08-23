@@ -1,6 +1,8 @@
 import pymongo
-from database.KeyPass import KeyPass
-from database.Collection import Collection
+
+from common.database.Collection import Collection
+from common.database.KeyPass import KeyPass
+
 
 class Database():
   def __init__(self, database, port=27017):
