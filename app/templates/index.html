@@ -9,8 +9,7 @@
 </head>
 <body>
 
-  <script type="text/x-handlebars">
-    {% verbatim %}
+  {% handlebars %}
     <div class="navbar">
       <div class="navbar-inner">
         {{#link-to 'index' class='brand'}}Bloggr{{/link-to}}
@@ -22,11 +21,9 @@
     </div>
 
     {{outlet}}
-    {% endverbatim %}
-  </script>
+  {% endhandlebars %}
 
-  <script type="text/x-handlebars" id="posts">
-    {% verbatim %}
+  {% handlebars "posts" %}
     <div class="container-fluid">
       <div class="row-fluid">
         <div class="span3">
@@ -52,15 +49,13 @@
         </div>
       </div>
     </div>
-    {% endverbatim %}
-  </script>
+  {% endhandlebars %}
 
-  <script type="text/x-handlebars" id="posts/index">
+  {% handlebars "posts/index" %}
     <p class="text-warning">Please select a post</p>
-  </script>
+  {% endhandlebars %}
 
-  <script type="text/x-handlebars" id="post">
-    {% verbatim %}
+  {% handlebars "post" %}
     {{#if isEditing}}
       {{partial 'post/edit'}}
       <button {{action 'doneEditing'}}>Done</button>
@@ -80,18 +75,15 @@
     <div class='below-the-fold'>
       {{format-markdown body}}
     </div>
-    {% endverbatim %}
-  </script>
+  {% endhandlebars %}
 
-  <script type="text/x-handlebars" id="post/_edit">
-    {% verbatim %}
+  {% handlebars "post/_edit" %}
     <p>{{input type="text" value=title}}</p>
     <p>{{input type="text" value=excerpt}}</p>
     <p>{{textarea value=body}}</p>
-    {% endverbatim %}
-  </script>
+  {% endhandlebars %}
 
-  <script type="text/x-handlebars" id="about">
+  {% handlebars "about" %}
     <div class='about'>
       <p>
         Yehuda Katz is a member of the <a href="http://emberjs.com">Ember.js</a>, <a href="http://rubyonrails.org">Ruby on Rails</a>
@@ -119,7 +111,8 @@
 
       <p>In my spare time I run a cash-for-beer exchange program at many local San Francisco dive bars.</p>
     </div>
-  </script>
+  {% endhandlebars %}
+
     <script src="{% static 'libs/jquery/dist/jquery.min.js'%}"></script>
     <script src="{% static 'libs/bootstrap/dist/js/bootstrap.min.js'%}"></script>
     <script src="{% static 'libs/handlebars/handlebars.min.js'%}"></script>
