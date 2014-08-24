@@ -1,13 +1,25 @@
-{% load staticfiles %}
+<!DOCTYPE html>
+<html>
 
-<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+<head>
+    <title>Title of the document</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'libs/bootstrap/dist/css/bootstrap.min.css' %}"/>
+    <script type="text/javascript" src="{% static 'libs/jquery/dist/jquery.min.js'%}"></script>
+    <script type="text/javascript" async src="{% static 'libs/bootstrap/dist/js/bootstrap.min.js'%}"></script>
+</head>
 
+<body>
 {% if list %}
-    <ul>
+<ul>
     {% for poll in list %}
-        <li><a href="/polls/{{ poll.id }}/">{{ poll.x }}</a></li>
+    <li><a href="/polls/{{ poll.id }}/">{{ poll.x }}</a></li>
     {% endfor %}
-    </ul>
+</ul>
 {% else %}
-    <p>No polls are available.</p>
+<p>No polls are available.</p>
 {% endif %}
+</body>
+
+</html>
