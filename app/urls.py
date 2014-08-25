@@ -6,5 +6,5 @@ from app.routes import database
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
     url(r'^api/(?P<collection>\w+)/$', database.documents, name='api.documents'),
-    url(r'^api/(?P<collection>\w+)/(?P<id>\w+)/$', database.documents, name='api.document'),
+    url(r'^api/(?P<collection>\w+)/(?P<id>\w+)/$', database.document, name='api.document'),
 )

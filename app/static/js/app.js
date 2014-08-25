@@ -17,23 +17,16 @@ App.ProjectsRoute = Ember.Route.extend({
 
 App.ProjectRoute = Ember.Route.extend({
   model: function(params) {
-    return $.getJSON('/app/api/projects/'+params.project_id).then(function(data) {
-        return data;
-    });
-  }
-});
-
-App.ProjectController = Ember.ObjectController.extend({
-  isEditing: false,
-
-  actions: {
-    edit: function() {
-      this.set('isEditing', true);
-    },
-
-    doneEditing: function() {
-      this.set('isEditing', false);
-    }
+    var model = Ember.RSVP.hash(
+      {
+        project: $.getJSON('/app/api/projects/'+params.project_id).then(function(data) {
+            return data;
+        }),
+        epics: $.getJSON('/app/api/epics').then(function(data) {
+            return data;
+        })
+      });
+    return model;
   }
 });
 

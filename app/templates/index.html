@@ -35,7 +35,7 @@
                 {{#each model}}
                 <tr>
                     <td>
-                        {{#link-to 'project' this}}{{name}}{{/link-to}}
+                        {{#link-to 'project' id}}{{name}}{{/link-to}}
                     </td>
                 </tr>
                 {{/each}}
@@ -55,15 +55,26 @@
 
 {% handlebars "project" %}
 <div>
-    <h1>{{name}} ({{key}})</h1>
+    <h1>{{project.name}} ({{project.id}})</h1>
     <hr>
     <div class='intro'>
-        {{format-markdown url}}
+        {{project.url}}
     </div>
-
     <div class='below-the-fold'>
-        {{format-markdown application}}
+        {{project.application}}
     </div>
+    <hr>
+    <table class='epics'>
+        <tbody>
+        {{#each model.epics}}
+        <tr>
+            <td>
+                {{format-markdown summary}}
+            </td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
 {% endhandlebars %}
 
 {% handlebars "about" %}

@@ -20,4 +20,4 @@ def documents(request, collection):
     return JsonResponse([doc for doc in database.getCollection(collection).find(queryParams.filtering, queryParams.fields)])
 
 def document(request, collection, id):
-    return JsonResponse(doc for doc in database.getCollection(collection).find({'id' : id}))
+    return JsonResponse(database.getCollection(collection).findOne({'id' : id}))
