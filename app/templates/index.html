@@ -55,42 +55,64 @@
 
 {% handlebars "project" %}
 <div>
-    <h1>{{project.name}} ({{project.id}})</h1>
-    <hr>
-    <div class='intro'>
-        {{project.url}}
+    <div class="row">
+        <div class="col-md-6">
+            <h1>{{project.name}}
+                <small>({{project.id}})</small>
+            </h1>
+        </div>
+        <div class="col-md-6 right">
+            <div>
+                <a {{bind-attr href=project.url}}>{{project.url}}</a>
+            </div>
+            <div>
+                <a {{bind-attr href=project.application}}>{{project.application}}</a>
+            </div>
+        </div>
     </div>
-    <div class='below-the-fold'>
-        {{project.application}}
-    </div>
     <hr>
-    <table class='epics'>
+    <div class="row">
+    <table class='table table-striped'>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Description</th>
+            <th>Progress</th>
+            <th>Link</th>
+        </tr>
+        </thead>
         <tbody>
         {{#each model.epics}}
         <tr>
-            <td>
-                {{format-markdown summary}}
-            </td>
+            <td>{{order}}</td>
+            <td>{{summary}}</td>
+            <td>{{status}}</td>
+            <td>{{format-markdown description}}</td>
+            <td>{{progress.current}}/{{progress.total}}</td>
+            <td><a {{bind-attr href=url}}><span class="glyphicon glyphicon-share-alt"></span></a></td>
         </tr>
         {{/each}}
         </tbody>
     </table>
-{% endhandlebars %}
+    </div>
+    {% endhandlebars %}
 
-{% handlebars "about" %}
-<div class='about'>
-    <p>
-        Here will be project statistics
-    </p>
-</div>
-{% endhandlebars %}
+    {% handlebars "about" %}
+    <div class='about'>
+        <p>
+            Here will be project statistics
+        </p>
+    </div>
+    {% endhandlebars %}
 
-<script src="{% static 'libs/jquery/dist/jquery.min.js'%}"></script>
-<script src="{% static 'libs/bootstrap/dist/js/bootstrap.min.js'%}"></script>
-<script src="{% static 'libs/handlebars/handlebars.min.js'%}"></script>
-<script src="{% static 'libs/ember/ember.min.js'%}"></script>
-<script src="{% static 'libs/showdown/compressed/showdown.js'%}"></script>
-<script src="{% static 'libs/moment/min/moment.min.js'%}"></script>
-<script src="{% static 'js/app.js'%}"></script>
+    <script src="{% static 'libs/jquery/dist/jquery.min.js'%}"></script>
+    <script src="{% static 'libs/bootstrap/dist/js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'libs/handlebars/handlebars.min.js'%}"></script>
+    <script src="{% static 'libs/ember/ember.min.js'%}"></script>
+    <script src="{% static 'libs/showdown/compressed/showdown.js'%}"></script>
+    <script src="{% static 'libs/moment/min/moment.min.js'%}"></script>
+    <script src="{% static 'js/app.js'%}"></script>
 </body>
 </html>

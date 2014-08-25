@@ -34,7 +34,7 @@ class Issue(object):
       "originalEstimate": fields.aggregatetimeoriginalestimate,
       "progress": {
         "timespent": fields.aggregatetimespent,
-        "curent": fields.aggregateprogress.progress,
+        "current": fields.aggregateprogress.progress,
         "total": fields.aggregateprogress.total,
         "percent": fields.aggregateprogress.percent if hasattr(fields.aggregateprogress, 'percent') else 'undefined',
       },
