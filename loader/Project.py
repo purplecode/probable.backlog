@@ -28,7 +28,7 @@ class Project(object):
 
   def getModel(self):
     return {
-      "key": self.project.key,
+      "id": self.project.key,
       "name": self.project.name,
       "description": self.project.description,
       "lead": {
