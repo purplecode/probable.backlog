@@ -24,8 +24,10 @@ class Collection():
   def insert(self, data):
     return self.collection.insert(data)
 
-  def find(self, query={}, fields=None, skip=0, limit=0):
-    return self.collection.find(spec=wrapIdsIntoObjects(query), fields=fields, skip=skip, limit=limit)
+  def find(self, query={}, fields=None, sort=None, skip=0, limit=0):
+    cursor = self.collection.find(spec=wrapIdsIntoObjects(query), fields=fields, skip=skip, limit=limit)
+    if sort: cursor.sort(sort)
+    return cursor
 
   def findOne(self, query={}, fields=None):
     return self.collection.find_one(wrapIdsIntoObjects(query), fields)
