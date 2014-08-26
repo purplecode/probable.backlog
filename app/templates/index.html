@@ -63,7 +63,7 @@
         </div>
         <div class="col-md-6 right">
             <div>
-                <a {{bind-attr href=project.url}}>{{project.url}}</a>
+                <a {{bind-attr href="view.url"}}>https://jira3.inside.nsn.com/browse/{{project.key}}</a>
             </div>
             <div>
                 <a {{bind-attr href=project.application}}>{{project.application}}</a>
@@ -72,15 +72,18 @@
     </div>
     <hr>
     <div class="row">
-    <table class='table table-striped'>
+    <table class='epics table table-striped'>
         <thead>
         <tr>
             <th>#</th>
             <th>Name</th>
             <th>Status</th>
+            <th>Probable delivery</th>
             <th>Description</th>
             <th>Progress</th>
+            <th>Requestor</th>
             <th>Link</th>
+            <th>REST</th>
         </tr>
         </thead>
         <tbody>
@@ -89,9 +92,12 @@
             <td>{{order}}</td>
             <td>{{summary}}</td>
             <td>{{status}}</td>
+            <td>{{format-date dueDate}}</td>
             <td>{{format-markdown description}}</td>
             <td>{{progress.current}}/{{progress.total}}</td>
+            <td>{{format-displayname reporter.displayName}}</td>
             <td><a href="https://jira3.inside.nsn.com/browse/{{unbound key}}"><span class="glyphicon glyphicon-share-alt"></span></a></td>
+            <td><a {{bind-attr href=url}}><span class="glyphicon glyphicon-share"></span></a></td>
         </tr>
         {{/each}}
         </tbody>

@@ -18,6 +18,9 @@ class Collection():
   def __init__(self, collection):
     self.collection = collection
 
+  def fullName(self):
+    return self.collection.full_name
+
   def remove(self, query={}):
     return self.collection.remove(wrapIdsIntoObjects(query))
 

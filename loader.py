@@ -1,7 +1,7 @@
 import getpass
 from common.database.Database import Database
 from loader.Jira import Jira
-
+from loader.settings import settings as projects
 
 def isAnyInstance(obj, *types):
   return any(map(lambda type: isinstance(obj, type), types))
@@ -20,10 +20,12 @@ def objToDict(obj):
     return obj
 
 
-def loadIssues(collection, issues):
+def loadIssues(collection, issues, removeQuery):
+  print collection.fullName()
+  collection.remove(removeQuery)
   for issue in issues:
     print issue.getKey()
-    collection.update({'key': issue.getKey()}, issue.getModel(), upsert=True)
+    collection.insert(issue.getModel())
 
 
 if __name__ == "__main__":
@@ -31,11 +33,12 @@ if __name__ == "__main__":
   password = getpass.getpass('password: ')
 
   database = Database(database='backlog', port=27017).authenticateWithKeyPass('backlog')
-  project = Jira(username, password).getProject('MINT')
 
-  loadIssues(database.getCollection('stories'), project.getStories())
-  loadIssues(database.getCollection('epics'), project.getEpics())
-  loadIssues(database.getCollection('projects'), [project])
+  for projectKey, settings in projects.iteritems():
+    project = Jira(username, password).getProject(projectKey)
+    loadIssues(database.getCollection('projects'), [project], {'key' : projectKey})
+    loadIssues(database.getCollection('epics'), project.getEpics(), {'project_key' : projectKey})
+    loadIssues(database.getCollection('stories'), project.getStories(), {'project_key' : projectKey})
 
 
 

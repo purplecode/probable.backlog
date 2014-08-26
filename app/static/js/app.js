@@ -53,6 +53,12 @@ App.ProjectRoute = Ember.Route.extend({
     }
 });
 
+App.ProjectView = Ember.View.extend({
+    url: function() {
+      return 'https://jira3.inside.nsn.com/browse/'+this.get('controller.model').project.key;
+    }.property()
+  });
+
 var showdown = new Showdown.converter();
 
 Ember.Handlebars.helper('format-markdown', function(input) {
@@ -60,5 +66,9 @@ Ember.Handlebars.helper('format-markdown', function(input) {
 });
 
 Ember.Handlebars.helper('format-date', function(date) {
-    return moment(date).fromNow();
+    return date ? moment(date).fromNow() : 'N/A';
+});
+
+Ember.Handlebars.helper('format-displayname', function(name) {
+    return name.replace(/\(.*\)/, '');
 });

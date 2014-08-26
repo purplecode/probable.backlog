@@ -29,6 +29,7 @@ class Project(object):
   def getModel(self):
     return {
       "id": self.project.key,
+      "key": self.project.key,
       "name": self.project.name,
       "description": self.project.description,
       "lead": {
@@ -38,5 +39,5 @@ class Project(object):
       },
       "versions": map(lambda version: version.name, self.project.versions),
       "url": self.project.self,
-      "application": self.project.url
+      "application": self.project.url if hasattr(self.project, 'url') else '',
     }
