@@ -6,6 +6,12 @@ class Issue(object):
   def getKey(self):
     return self.issue.key
 
+  def getParentKey(self):
+    return 'undefined'
+
+  def getSubtasks(self):
+    return []
+
   def getModel(self):
     issue = self.issue
     fields = self.issue.fields
@@ -38,16 +44,9 @@ class Issue(object):
         "total": fields.aggregateprogress.total,
         "percent": fields.aggregateprogress.percent if hasattr(fields.aggregateprogress, 'percent') else 'undefined',
       },
-      "subtasks": map(self.__subtask, fields.subtasks)
+      "subtasks": self.getSubtasks(),
+      "parent": self.getParentKey()
     }
-
-    # for stories
-    if hasattr(fields, 'customfield_12790') and fields.customfield_12790:
-      model["parent"] = fields.customfield_12790
-
-    # for tasks
-    if hasattr(fields, 'parent'):
-      model["parent"] = fields.parent.key
 
     if fields.assignee:
       model['assignee'] = {
@@ -66,16 +65,3 @@ class Issue(object):
       }
 
     return model
-
-  def __subtask(self, subtask):
-    fields = subtask.fields
-    return {
-      "key": subtask.key,
-      "url": subtask.self,
-      "status": fields.status.name,
-      "priority": fields.priority.name,
-      "issueType": fields.issuetype.name,
-      "summary": fields.summary
-    }
-
-
