@@ -41,6 +41,14 @@ class Issue(object):
       "subtasks": map(self.__subtask, fields.subtasks)
     }
 
+    # for stories
+    if hasattr(fields, 'customfield_12790') and fields.customfield_12790:
+      model["parent"] = fields.customfield_12790
+
+    # for tasks
+    if hasattr(fields, 'parent'):
+      model["parent"] = fields.parent.key
+
     if fields.assignee:
       model['assignee'] = {
         "displayName": fields.assignee.displayName,

@@ -10,7 +10,7 @@ App.Router.map(function() {
 });
 
 App.Rest = {
-    post : function(url, payload) {
+    post: function(url, payload) {
         return $.ajax('/app/api/epics', {
             type: 'POST',
             dataType: 'JSON',
@@ -35,6 +35,22 @@ App.ProjectsRoute = Ember.Route.extend({
 });
 
 App.ProjectRoute = Ember.Route.extend({
+    actions: {
+        openModal: function(modalName, model) {
+            this.controllerFor(modalName).set('model', model);
+            return this.render(modalName, {
+                into: 'project',
+                outlet: 'modal'
+            });
+        },
+
+        closeModal: function() {
+            return this.disconnectOutlet({
+                outlet: 'modal',
+                parentView: 'project'
+            });
+        }
+    },
     model: function(params) {
         var model = Ember.RSVP.hash({
             project: $.getJSON('/app/api/projects/' + params.project_id).then(function(data) {
@@ -55,9 +71,25 @@ App.ProjectRoute = Ember.Route.extend({
 
 App.ProjectView = Ember.View.extend({
     url: function() {
-      return 'https://jira3.inside.nsn.com/browse/'+this.get('controller.model').project.key;
+        return 'https://jira3.inside.nsn.com/browse/' + this.get('controller.model').project.key;
     }.property()
-  });
+});
+
+App.ModalController = Ember.ObjectController.extend({
+    actions: {
+        close: function() {
+            return this.send('closeModal');
+        }
+    }
+});
+
+App.ModalDialogComponent = Ember.Component.extend({
+    actions: {
+        close: function() {
+            return this.sendAction();
+        }
+    }
+});
 
 var showdown = new Showdown.converter();
 

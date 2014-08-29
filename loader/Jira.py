@@ -1,5 +1,6 @@
-from loader.settings import settings
 from loader.Project import Project
+from loader.settings import settings
+
 
 class Jira(object):
 

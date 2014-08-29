@@ -1,4 +1,5 @@
 from jira.client import JIRA
+
 from loader.Issue import Issue
 
 

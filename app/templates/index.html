@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <title>Probable Backlog</title>
     {% load staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'libs/bootstrap/dist/css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
 </head>
 <body>
 
@@ -83,7 +83,7 @@
             <th>Progress</th>
             <th>Requestor</th>
             <th>Link</th>
-            <th>REST</th>
+            <!-- <th>REST</th> -->
         </tr>
         </thead>
         <tbody>
@@ -96,29 +96,56 @@
             <td>{{format-markdown description}}</td>
             <td>{{progress.current}}/{{progress.total}}</td>
             <td>{{format-displayname reporter.displayName}}</td>
-            <td><a href="https://jira3.inside.nsn.com/browse/{{unbound key}}"><span class="glyphicon glyphicon-share-alt"></span></a></td>
-            <td><a {{bind-attr href=url}}><span class="glyphicon glyphicon-share"></span></a></td>
+            <td><a href="https://jira3.inside.nsn.com/browse/{{unbound key}}"><span class="glyphicon glyphicon-share-alt"></span></a>
+             <!--     <button {{action 'openModal' 'modal' summary}}>Open modal</button>-->
+            </td>
+            <!-- <td><a {{bind-attr href=url}}><span class="glyphicon glyphicon-share"></span></a></td>-->
+
         </tr>
         {{/each}}
         </tbody>
     </table>
     </div>
+    {{outlet modal}}
     {% endhandlebars %}
+customfield_12790
 
-    {% handlebars "about" %}
-    <div class='about'>
-        <p>
-            Here will be project statistics
-        </p>
+{% verbatim %}
+
+  <script type="text/x-handlebars" data-template-name="modal">
+    {{#modal-dialog action="close"}}
+      <h3 class="flush--top">Name Change Modal</h5>
+      <p>Enter a new name for {{model}}</p>
+      <p>{{input value=summary}}</p>
+      <button {{action "close"}}>Done</button>
+    {{/modal-dialog}}
+  </script>
+
+{% endverbatim %}
+
+  
+{% handlebars "components/modal-dialog" %}
+    <div class="overlay" {{action "close"}}> 
     </div>
-    {% endhandlebars %}
+    <div class="modal">
+      {{yield}}
+    </div>
+{% endhandlebars %}
 
-    <script src="{% static 'libs/jquery/dist/jquery.min.js'%}"></script>
-    <script src="{% static 'libs/bootstrap/dist/js/bootstrap.min.js'%}"></script>
-    <script src="{% static 'libs/handlebars/handlebars.min.js'%}"></script>
-    <script src="{% static 'libs/ember/ember.min.js'%}"></script>
-    <script src="{% static 'libs/showdown/compressed/showdown.js'%}"></script>
-    <script src="{% static 'libs/moment/min/moment.min.js'%}"></script>
-    <script src="{% static 'js/app.js'%}"></script>
+{% handlebars "about" %}
+<div class='about'>
+    <p>
+        Here will be project statistics
+    </p>
+</div>
+{% endhandlebars %}
+
+<script src="{% static 'libs/jquery/dist/jquery.min.js'%}"></script>
+<script src="{% static 'libs/bootstrap/dist/js/bootstrap.min.js'%}"></script>
+<script src="{% static 'libs/handlebars/handlebars.min.js'%}"></script>
+<script src="{% static 'libs/ember/ember.min.js'%}"></script>
+<script src="{% static 'libs/showdown/compressed/showdown.js'%}"></script>
+<script src="{% static 'libs/moment/min/moment.min.js'%}"></script>
+<script src="{% static 'js/app.js'%}"></script>
 </body>
 </html>
