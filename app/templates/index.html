@@ -81,6 +81,7 @@
             <th>Probable delivery</th>
             <th>Description</th>
             <th>Progress</th>
+            <th>Burned</th>
             <th>Requestor</th>
             <th>Link</th>
             <!-- <th>REST</th> -->
@@ -94,6 +95,7 @@
             <td>{{status}}</td>
             <td>{{format-date dueDate}}</td>
             <td>{{format-markdown description}}</td>
+            <td><span class="badge">{{format-percent progress.percent}}</span></td>
             <td>{{progress.current}}/{{progress.total}}</td>
             <td>{{format-displayname reporter.displayName}}</td>
             <td><a href="https://jira3.inside.nsn.com/browse/{{unbound key}}"><span class="glyphicon glyphicon-share-alt"></span></a>

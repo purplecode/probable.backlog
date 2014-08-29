@@ -12,6 +12,15 @@ class Issue(object):
   def getSubtasks(self):
     return []
 
+  def getProgress(self):
+    fields = self.issue.fields
+    return {
+        "timespent": int(fields.aggregatetimespent)/3600.0 if fields.aggregatetimespent else 0,
+        "current": int(fields.aggregateprogress.progress)/3600.0 if fields.aggregateprogress.progress else 0,
+        "total": int(fields.aggregateprogress.total)/3600.0 if fields.aggregateprogress.total else 0,
+        "percent": int(fields.aggregateprogress.percent)/3600.0 if hasattr(fields.aggregateprogress, 'percent') else 0,
+    }
+
   def getModel(self):
     issue = self.issue
     fields = self.issue.fields
@@ -38,12 +47,7 @@ class Issue(object):
       "environment": fields.environment,
       "estimate": fields.aggregatetimeestimate,
       "originalEstimate": fields.aggregatetimeoriginalestimate,
-      "progress": {
-        "timespent": fields.aggregatetimespent,
-        "current": fields.aggregateprogress.progress,
-        "total": fields.aggregateprogress.total,
-        "percent": fields.aggregateprogress.percent if hasattr(fields.aggregateprogress, 'percent') else 'undefined',
-      },
+      "progress": self.getProgress(),
       "subtasks": self.getSubtasks(),
       "parent": self.getParentKey()
     }

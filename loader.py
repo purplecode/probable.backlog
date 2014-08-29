@@ -37,7 +37,7 @@ if __name__ == "__main__":
   for projectKey, settings in projects.iteritems():
     jira = Jira(projectKey, username, password)
     loadIssues(database.getCollection('projects'), [jira.getProject()], {'key' : projectKey})
-    loadIssues(database.getCollection('tasks'), jira.getTasks(), {'key' : projectKey})
+    loadIssues(database.getCollection('tasks'), jira.getTasks(), {'project_key' : projectKey})
     loadIssues(database.getCollection('stories'), jira.getStories(), {'project_key' : projectKey})
     loadIssues(database.getCollection('epics'), jira.getEpics(database.getCollection('stories')), {'project_key' : projectKey})
 

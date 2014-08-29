@@ -104,3 +104,7 @@ Ember.Handlebars.helper('format-date', function(date) {
 Ember.Handlebars.helper('format-displayname', function(name) {
     return name.replace(/\(.*\)/, '');
 });
+
+Ember.Handlebars.helper('format-percent', function(number) {
+    return (Math.round(number * 100) / 100).toFixed(2) + '%';
+});

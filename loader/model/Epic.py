@@ -2,16 +2,26 @@ from loader.model.Issue import Issue
 
 class Epic(Issue):
 
-  def __init__(self, issue, order, stories):
-    self.issue = issue
-    self.order = order
-    self.stories = stories
+  def __init__(self, issue, order, storiesCollection):
+    Issue.__init__(self, issue, order)
+    self.stories = list(storiesCollection.find({'parent': self.getKey()}))
 
   def getSubtasks(self):
-    subtasks = self.stories.find({'parent': self.getKey()})
-    return map(self.__subtask, subtasks)
+    return map(self.__createSubtask, self.stories)
 
-  def __subtask(self, subtask):
+  def getProgress(self):
+    return {
+        "timespent": self.__sumUpProgress('timespent'),
+        "current": self.__sumUpProgress('current'),
+        "total": self.__sumUpProgress('total'),
+        "percent": self.__sumUpProgress('percent')
+    }
+
+  def __sumUpProgress(self, property):
+    result = reduce((lambda acc, story: acc + story['progress'][property]), self.stories, 0),
+    return result[0] # wtf?
+
+  def __createSubtask(self, subtask):
     return {key: subtask[key] for key in ('key', 'url', 'status', 'priority', 'issueType', 'summary')}
 
 

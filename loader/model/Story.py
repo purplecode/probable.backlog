@@ -12,9 +12,9 @@ class Story(Issue):
     return Issue.getParentKey(self)
 
   def getSubtasks(self):
-    map(self.__subtask, self.issue.fields.subtasks)
+    map(self.__createSubtask, self.issue.fields.subtasks)
 
-  def __subtask(self, subtask):
+  def __createSubtask(self, subtask):
     fields = subtask.fields
     return {
       "key": subtask.key,
