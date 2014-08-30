@@ -26,6 +26,12 @@ App.Rest = {
 
 };
 
+App.IndexRoute = Ember.Route.extend({
+  beforeModel: function() {
+    this.transitionTo('projects');
+  }
+});
+
 App.ModalController = Ember.ObjectController.extend({
     actions: {
         close: function() {

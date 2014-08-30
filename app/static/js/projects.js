@@ -4,7 +4,10 @@ App.ProjectsRoute = Ember.Route.extend({
         return $.getJSON('/app/api/projects').then(function(data) {
             return data;
         });
-    }
+    },
+    afterModel: function(projects, transition) {
+      this.transitionTo('project', projects.get('firstObject').key);
+  }
 });
 
 App.ProjectRoute = Ember.Route.extend({
