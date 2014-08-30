@@ -13,5 +13,6 @@
     "app/static/libs"
   ],
   "dependencies": {
+    "fontawesome": "~4.2.0"
   }
 }
