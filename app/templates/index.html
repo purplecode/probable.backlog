@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Probable Backlog</title>
     {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'libs/fontawesome/css/font-awesome.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'libs/bootstrap/dist/css/bootstrap.flatty.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
 </head>
@@ -75,7 +76,6 @@
     <table class='epics table table-striped'>
         <thead>
         <tr>
-            <th>#</th>
             <th>Name</th>
             <th>Status</th>
             <th>Probable delivery</th>
@@ -83,23 +83,23 @@
             <th>Progress</th>
             <th>Burned</th>
             <th>Requestor</th>
-            <th>Link</th>
+            <th>Links</th>
             <!-- <th>REST</th> -->
         </tr>
         </thead>
         <tbody>
         {{#each model.epics}}
         <tr>
-            <td>{{order}}</td>
             <td>{{summary}}</td>
             <td>{{status}}</td>
             <td>{{format-date dueDate}}</td>
             <td>{{format-markdown description}}</td>
-            <td><span class="badge">{{format-percent progress.percent}}</span></td>
-            <td>{{progress.current}}/{{progress.total}}</td>
+            <td><span class="badge">{{format-float progress.percent}}%</span></td>
+            <td>{{format-float progress.current}}/{{format-float progress.total}}</td>
             <td>{{format-displayname reporter.displayName}}</td>
-            <td><a href="https://jira3.inside.nsn.com/browse/{{unbound key}}" target="_blank"><span class="glyphicon glyphicon-share-alt"></span></a>
-             <!--     <button {{action 'openModal' 'modal' summary}}>Open modal</button>-->
+            <td>
+                <a class="pointer" {{action 'openModal' 'modal' subtasks}} title="Details"><span class="glyphicon glyphicon-th-list"></span></a>&nbsp;
+                <a href="https://jira3.inside.nsn.com/browse/{{unbound key}}" target="_blank" title="View in Jira"><span class="glyphicon glyphicon-share-alt"></span></a>
             </td>
             <!-- <td><a {{bind-attr href=url}}><span class="glyphicon glyphicon-share"></span></a></td>-->
 
@@ -109,19 +109,42 @@
     </table>
     </div>
     {{outlet modal}}
-    {% endhandlebars %}
+{% endhandlebars %}
 
 {% verbatim %}
-
   <script type="text/x-handlebars" data-template-name="modal">
     {{#modal-dialog action="close"}}
-      <h3 class="flush--top">Name Change Modal</h5>
-      <p>Enter a new name for {{model}}</p>
-      <p>{{input value=summary}}</p>
-      <button {{action "close"}}>Done</button>
+      <div ><a class="pull-right pointer" {{action "close"}}><i class="fa fa-times"></i></a></div>
+      <h3>Stories</h3>
+      <hr>
+      <table class='epics table table-striped'>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Progress</th>
+            <th>Burned</th>
+            <th>Link</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each model}}
+        <tr>
+            <td>{{summary}}</td>
+            <td>{{status}}</td>
+            <td><span class="badge">{{format-float progress.percent}}%</span></td>
+            <td>{{format-float progress.current}}/{{format-float progress.total}}</td>
+            <td>
+                <a href="https://jira3.inside.nsn.com/browse/{{unbound key}}" target="_blank" title="View in Jira">
+                    <span class="glyphicon glyphicon-share-alt"></span>
+                </a>
+            </td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
     {{/modal-dialog}}
   </script>
-
 {% endverbatim %}
 
   

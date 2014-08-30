@@ -22,6 +22,6 @@ class Epic(Issue):
     return result[0] # wtf?
 
   def __createSubtask(self, subtask):
-    return {key: subtask[key] for key in ('key', 'url', 'status', 'priority', 'issueType', 'summary')}
+    return {key: subtask[key] for key in ('key', 'url', 'status', 'priority', 'issueType', 'summary', 'progress')}
 
 

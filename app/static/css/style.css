@@ -10,7 +10,7 @@
   margin: 10px auto;
   width: 50%;
   background-color: #fff;
-  padding: 1em;
+  padding: 0.5em 1em 1em 1em;
   display: block;
 }
 
@@ -25,4 +25,8 @@
 
 .flush--top {
   margin-top: 0;  
+}
+
+.pointer {
+  cursor: pointer;
 }

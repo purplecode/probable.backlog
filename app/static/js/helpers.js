@@ -12,6 +12,6 @@ Ember.Handlebars.helper('format-displayname', function(name) {
     return name.replace(/\(.*\)/, '');
 });
 
-Ember.Handlebars.helper('format-percent', function(number) {
-    return (Math.round(number * 100) / 100).toFixed(2) + '%';
+Ember.Handlebars.helper('format-float', function(number) {
+    return (Math.round(number * 100) / 100).toFixed(2);
 });
