@@ -1,7 +1,7 @@
 
 App.ProjectsRoute = Ember.Route.extend({
     model: function() {
-        return $.getJSON('/app/api/projects').then(function(data) {
+        return $.getJSON('/backlog/api/projects').then(function(data) {
             return data;
         });
     },
@@ -29,10 +29,10 @@ App.ProjectRoute = Ember.Route.extend({
     },
     model: function(params) {
         var model = Ember.RSVP.hash({
-            project: $.getJSON('/app/api/projects/' + params.project_id).then(function(data) {
+            project: $.getJSON('/backlog/api/projects/' + params.project_id).then(function(data) {
                 return data;
             }),
-            epics: App.Rest.post('/app/api/epics', {
+            epics: App.Rest.post('/backlog/api/epics', {
                 sorting: {
                     order: 1
                 },

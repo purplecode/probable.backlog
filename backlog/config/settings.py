@@ -37,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ember',
-    'app'
+    'backlog'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -49,9 +49,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'app.config.urls'
+ROOT_URLCONF = 'backlog.config.urls'
 
-WSGI_APPLICATION = 'app.config.wsgi.application'
+WSGI_APPLICATION = 'backlog.config.wsgi.application'
 
 
 # Database

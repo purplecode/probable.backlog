@@ -5,7 +5,7 @@ from common.utils.Files import Files
 
 class Config:
   root = '.'
-  sources = ['app', 'loader', 'common']
+  sources = ['backlog', 'loader', 'common']
 
 ########################################################
 def test():

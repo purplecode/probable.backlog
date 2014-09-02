@@ -11,7 +11,7 @@ App.Router.map(function() {
 
 App.Rest = {
     post: function(url, payload) {
-        return $.ajax('/app/api/epics', {
+        return $.ajax(url, {
             type: 'POST',
             dataType: 'JSON',
             data: JSON.stringify(payload),

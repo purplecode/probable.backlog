@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
 
-from app.routes import views
-from app.routes import database
+from backlog.routes import views
+from backlog.routes import database
 
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
