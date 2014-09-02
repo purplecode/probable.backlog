@@ -22,14 +22,19 @@ App.Rest = {
                 window.console.log(jqXHR);
             }
         });
+    },
+    get: function(url) {
+        return $.getJSON(url).then(function(data) {
+            return data;
+        });
     }
 
 };
 
 App.IndexRoute = Ember.Route.extend({
-  beforeModel: function() {
-    this.transitionTo('projects');
-  }
+    beforeModel: function() {
+        this.transitionTo('projects');
+    }
 });
 
 App.ModalController = Ember.ObjectController.extend({
