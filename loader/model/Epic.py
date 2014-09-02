@@ -10,16 +10,17 @@ class Epic(Issue):
     return map(self.__createSubtask, self.stories)
 
   def getProgress(self):
-    return {
+    result = {
         "timespent": self.__sumUpProgress('timespent'),
         "current": self.__sumUpProgress('current'),
         "total": self.__sumUpProgress('total'),
-        "percent": self.__sumUpProgress('percent')
+        "estimate": self.__sumUpProgress('estimate')
     }
+    result['percent'] = float(result['current']) / result['total'] * 100 if result['total'] > 0 else 0;
+    return result
 
   def __sumUpProgress(self, property):
-    result = reduce((lambda acc, story: acc + story['progress'][property]), self.stories, 0),
-    return result[0] # wtf?
+    return reduce((lambda acc, story: acc + story['progress'][property]), self.stories, 0)
 
   def __createSubtask(self, subtask):
     return {key: subtask[key] for key in ('key', 'url', 'status', 'priority', 'issueType', 'summary', 'progress')}

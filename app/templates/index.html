@@ -19,7 +19,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>{{#link-to 'projects' class='active'}}Roadmap{{/link-to}}</li>
-                <li>{{#link-to 'about'}}Statistics{{/link-to}}</li>
+                <!--<li>{{#link-to 'about'}}Statistics{{/link-to}}</li>-->
             </ul>
         </div>
     </div>
@@ -82,9 +82,9 @@
             <th>Description</th>
             <th>Progress</th>
             <th>Burned</th>
+            <th>Initial</th>
             <th>Requestor</th>
             <th>Links</th>
-            <!-- <th>REST</th> -->
         </tr>
         </thead>
         <tbody>
@@ -96,13 +96,13 @@
             <td>{{format-markdown description}}</td>
             <td><span class="badge">{{format-float progress.percent}}%</span></td>
             <td>{{format-float progress.current}}/{{format-float progress.total}}</td>
+            <td>{{format-float progress.estimate}}</td>
             <td>{{format-displayname reporter.displayName}}</td>
             <td>
                 <a class="pointer" {{action 'openModal' 'modal' subtasks}} title="Details"><span class="glyphicon glyphicon-th-list"></span></a>&nbsp;
                 <a href="https://jira3.inside.nsn.com/browse/{{unbound key}}" target="_blank" title="View in Jira"><span class="glyphicon glyphicon-share-alt"></span></a>
+                <!--<a {{bind-attr href=url}}><span class="glyphicon glyphicon-share"></span></a>-->
             </td>
-            <!-- <td><a {{bind-attr href=url}}><span class="glyphicon glyphicon-share"></span></a></td>-->
-
         </tr>
         {{/each}}
         </tbody>
@@ -124,6 +124,7 @@
             <th>Status</th>
             <th>Progress</th>
             <th>Burned</th>
+            <th>Initial</th>
             <th>Link</th>
         </tr>
         </thead>
@@ -134,6 +135,7 @@
             <td>{{status}}</td>
             <td><span class="badge">{{format-float progress.percent}}%</span></td>
             <td>{{format-float progress.current}}/{{format-float progress.total}}</td>
+            <td>{{format-float progress.estimate}}</td>
             <td>
                 <a href="https://jira3.inside.nsn.com/browse/{{unbound key}}" target="_blank" title="View in Jira">
                     <span class="glyphicon glyphicon-share-alt"></span>

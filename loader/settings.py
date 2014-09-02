@@ -6,7 +6,7 @@ settings = {
         'project' : 'MCMP',
         'stories' : 'project = MINT AND (labels != idea OR labels is empty) and status != Closed and issuetype = Story ORDER BY Rank ASC',
         'epics' : 'project = MINT AND issuetype = Epic AND status != Closed AND (labels != nobacklog OR labels is empty) ORDER BY Rank ASC',
-        'tasks' : 'project = MINT AND (issuetype in (subTaskIssueTypes(), Bug, Improvement, Story, "Technical task")) AND status != Closed AND (labels != nobacklog OR labels is empty) ORDER BY Rank ASC'
+        'tasks' : 'project = MINT AND (issuetype in (subTaskIssueTypes(), Bug, Improvement, "Technical task")) AND status != Closed AND (labels != nobacklog OR labels is empty) ORDER BY Rank ASC'
       }
     },
     'NDA' : {
@@ -16,7 +16,7 @@ settings = {
         'project' : 'NDA',
         'stories' : 'project = NDA and status != Closed and issuetype = Story ORDER BY Rank ASC',
         'epics' : 'project = NDA AND issuetype = Epic AND status != Closed AND (labels != nobacklog OR labels is empty) ORDER BY Rank ASC',
-        'tasks' : 'project = NDA AND (issuetype in (subTaskIssueTypes(), Bug, Improvement, Story, "Technical task")) AND status != Closed AND (labels != nobacklog OR labels is empty) ORDER BY Rank ASC'
+        'tasks' : 'project = NDA AND (issuetype in (subTaskIssueTypes(), Bug, Improvement, "Technical task")) AND status != Closed AND (labels != nobacklog OR labels is empty) ORDER BY Rank ASC'
       }
     },
     # 'RNTDIM' : {
@@ -36,7 +36,7 @@ settings = {
     #     'project' : 'CSCLOUD',
     #     'stories' : 'project = CSCLOUD and status != Closed and issuetype = Story ORDER BY Rank ASC',
     #     'epics' : 'project = CSCLOUD AND issuetype = Epic AND status != Closed AND (labels != nobacklog OR labels is empty) ORDER BY Rank ASC',
-    #     'tasks' : 'project = CSCLOUD AND (issuetype in (subTaskIssueTypes(), Bug, Improvement, Story, "Technical task")) AND status != Closed AND (labels != nobacklog OR labels is empty) ORDER BY Rank ASC'
+    #     'tasks' : 'project = CSCLOUD AND (issuetype in (subTaskIssueTypes(), Bug, Improvement, "Technical task")) AND status != Closed AND (labels != nobacklog OR labels is empty) ORDER BY Rank ASC'
     #   }
     # }
   }
