@@ -2,9 +2,9 @@ from loader.model.Issue import Issue
 
 class Epic(Issue):
 
-  def __init__(self, issue, order, storiesCollection):
-    Issue.__init__(self, issue, order)
-    self.stories = list(storiesCollection.find({'parent': self.getKey()}))
+  def __init__(self, issue, order, epics, stories):
+    Issue.__init__(self, issue, order, epics)
+    self.stories = list(stories.find({'parent': self.getKey()}))
 
   def getSubtasks(self):
     return map(self.__createSubtask, self.stories)

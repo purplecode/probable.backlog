@@ -14,11 +14,11 @@ class Jira(object):
   def getProject(self):
     return Project(self.jira.project(self.queries['project']))
 
-  def getTasks(self):
-    return [Task(issue, idx) for idx, issue in enumerate(self.jira.search_issues(self.queries['tasks']))]
+  def getTasks(self, tasks):
+    return [Task(issue, idx, tasks) for idx, issue in enumerate(self.jira.search_issues(self.queries['tasks']))]
 
-  def getStories(self):
-    return [Story(issue, idx) for idx, issue in enumerate(self.jira.search_issues(self.queries['stories']))]
+  def getStories(self, stories):
+    return [Story(issue, idx, stories) for idx, issue in enumerate(self.jira.search_issues(self.queries['stories']))]
 
-  def getEpics(self, storiesCollection):
-    return [Epic(issue, idx, storiesCollection) for idx, issue in enumerate(self.jira.search_issues(self.queries['epics']))]
+  def getEpics(self, epics, stories):
+    return [Epic(issue, idx, epics, stories) for idx, issue in enumerate(self.jira.search_issues(self.queries['epics']))]

@@ -1,7 +1,11 @@
+import datetime
+
 class Issue(object):
-  def __init__(self, issue, order):
+
+  def __init__(self, issue, order, collection):
     self.issue = issue
     self.order = order
+    self.previous = collection.findOne({'key' : self.getKey()}) or {}
 
   def getKey(self):
     return self.issue.key
@@ -22,6 +26,12 @@ class Issue(object):
         "percent": toHours(fields.aggregateprogress, 'percent', 1),
         "estimate" : max(toHours(fields, 'customfield_11890'), toHours(fields, 'aggregatetimeoriginalestimate'))
     }
+
+  def getHistory(self):
+    history = self.previous.get('history') or []
+    progress = self.getProgress()
+    progress['datetime'] = datetime.datetime.now().isoformat()
+    return history + [progress]
 
   def getModel(self):
     issue = self.issue
@@ -50,6 +60,7 @@ class Issue(object):
       "estimate": fields.aggregatetimeestimate,
       "originalEstimate": fields.aggregatetimeoriginalestimate,
       "progress": self.getProgress(),
+      "history": self.getHistory(),
       "subtasks": self.getSubtasks(),
       "parent": self.getParentKey()
     }

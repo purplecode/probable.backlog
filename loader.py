@@ -35,11 +35,16 @@ if __name__ == "__main__":
   database = Database(database='backlog', port=27017).authenticateWithKeyPass('backlog')
 
   for projectKey, settings in projects.iteritems():
+    projects = database.getCollection('projects')
+    tasks = database.getCollection('tasks')
+    stories = database.getCollection('stories')
+    epics = database.getCollection('epics')
+
     jira = Jira(projectKey, username, password)
-    loadIssues(database.getCollection('projects'), [jira.getProject()], {'key' : projectKey})
-    loadIssues(database.getCollection('tasks'), jira.getTasks(), {'project_key' : projectKey})
-    loadIssues(database.getCollection('stories'), jira.getStories(), {'project_key' : projectKey})
-    loadIssues(database.getCollection('epics'), jira.getEpics(database.getCollection('stories')), {'project_key' : projectKey})
+    loadIssues(projects, [jira.getProject()], {'key' : projectKey})
+    loadIssues(tasks, jira.getTasks(tasks), {'project_key' : projectKey})
+    loadIssues(stories, jira.getStories(stories), {'project_key' : projectKey})
+    loadIssues(epics, jira.getEpics(epics, stories), {'project_key' : projectKey})
 
 
 

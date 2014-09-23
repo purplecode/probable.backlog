@@ -2,10 +2,6 @@ from loader.model.Issue import Issue
 
 class Story(Issue):
 
-  def __init__(self, issue, order):
-    self.issue = issue
-    self.order = order
-
   def getParentKey(self):
     if hasattr(self.issue.fields, 'customfield_12790') and self.issue.fields.customfield_12790:
       return self.issue.fields.customfield_12790
