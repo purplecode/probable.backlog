@@ -37,7 +37,7 @@ App.ProjectTableRoute = Ember.Route.extend({
         closeModal: function() {
             return this.disconnectOutlet({
                 outlet: 'modal',
-                parentView: 'project'
+                parentView: 'project.table'
             });
         }
     }
