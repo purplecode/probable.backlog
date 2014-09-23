@@ -39,11 +39,9 @@
             </h1>
         </div>
         <div class="col-md-6 right">
-            <div>
-                <a {{bind-attr href="view.url"}}>https://jira3.inside.nsn.com/browse/{{project.key}}</a>
-            </div>
-            <div>
-                <a {{bind-attr href=project.application}}>{{project.application}}</a>
+            <div class="btn-group mode-switch">
+                {{#link-to 'project.table' project.id classNames="btn btn-default"}}<span class="fa fa-table"></span>{{/link-to}}
+                {{#link-to 'project.charts' project.id classNames="btn btn-default"}}<span class="fa fa-line-chart"></span>{{/link-to}}
             </div>
         </div>
     </div>
