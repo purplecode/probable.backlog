@@ -2,6 +2,11 @@
     text-align: right;
 }
 
+.projects {
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
 .epics td {
     max-width: 400px;
 }

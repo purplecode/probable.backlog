@@ -10,7 +10,7 @@
 </head>
 <body>
 
-{% handlebars %}
+{% handlebars "projects" %}
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -18,40 +18,16 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li>{{#link-to 'projects' class='active'}}Roadmap{{/link-to}}</li>
-                <li>{{#link-to 'charts'}}Charts{{/link-to}}</li>
+                {{#each model}}
+                    <li>{{#link-to 'project' id}}{{name}}{{/link-to}}</li>
+                {{/each}}
             </ul>
         </div>
     </div>
 </nav>
-{{outlet}}
-{% endhandlebars %}
-
-{% handlebars "projects" %}
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="col-md-2">
-            <table class='table'>
-                <tbody>
-                {{#each model}}
-                <tr>
-                    <td>
-                        {{#link-to 'project' id}}{{name}}{{/link-to}}
-                    </td>
-                </tr>
-                {{/each}}
-                </tbody>
-            </table>
-        </div>
-        <div class="col-md-10">
-            {{outlet}}
-        </div>
-    </div>
+<div class="projects">
+    {{outlet}}
 </div>
-{% endhandlebars %}
-
-{% handlebars "projects/index" %}
-<p class="text-warning">Please select a project</p>
 {% endhandlebars %}
 
 {% handlebars "project" %}
