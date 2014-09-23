@@ -6,6 +6,7 @@
     {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'libs/fontawesome/css/font-awesome.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'libs/bootstrap/dist/css/bootstrap.flatty.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'libs/ember-charts/dist/ember-charts.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
 </head>
 <body>
@@ -19,7 +20,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 {{#each model}}
-                    <li>{{#link-to 'project.table' id}}{{name}}{{/link-to}}</li>
+                    <li>{{#link-to 'project' id}}{{name}}{{/link-to}}</li>
                 {{/each}}
             </ul>
         </div>
@@ -144,12 +145,15 @@
     </div>
 {% endhandlebars %}
 
-<script src="{% static 'libs/jquery/dist/jquery.min.js'%}"></script>
+<script src="{% static 'libs/jquery/jquery.min.js'%}"></script>
 <script src="{% static 'libs/bootstrap/dist/js/bootstrap.min.js'%}"></script>
 <script src="{% static 'libs/handlebars/handlebars.min.js'%}"></script>
 <script src="{% static 'libs/ember/ember.min.js'%}"></script>
 <script src="{% static 'libs/showdown/compressed/showdown.js'%}"></script>
 <script src="{% static 'libs/moment/min/moment.min.js'%}"></script>
+<script src="{% static 'libs/d3/d3.min.js'%}"></script>
+<script src="{% static 'libs/lodash/dist/lodash.min.js'%}"></script>
+<script src="{% static 'libs/ember-charts/dist/ember-charts.js'%}"></script>
 <script src="{% static 'js/app.js'%}"></script>
 <script src="{% static 'js/modal.js'%}"></script>
 <script src="{% static 'js/rest.js'%}"></script>

@@ -22,6 +22,9 @@ App.ProjectRoute = Ember.Route.extend({
             })
         });
         return model;
+    },
+    afterModel: function() {
+      this.transitionTo('project.table');
     }
 });
 
