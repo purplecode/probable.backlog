@@ -19,7 +19,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 {{#each model}}
-                    <li>{{#link-to 'project' id}}{{name}}{{/link-to}}</li>
+                    <li>{{#link-to 'project.table' id}}{{name}}{{/link-to}}</li>
                 {{/each}}
             </ul>
         </div>
@@ -49,42 +49,54 @@
     </div>
     <hr>
     <div class="row">
-    <table class='epics table table-striped'>
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Status</th>
-            <th>Probable delivery</th>
-            <th>Description</th>
-            <th>Progress</th>
-            <th>Burned</th>
-            <th>Initial</th>
-            <th>Requestor</th>
-            <th>Links</th>
-        </tr>
-        </thead>
-        <tbody>
-        {{#each model.epics}}
-        <tr>
-            <td>{{summary}}</td>
-            <td>{{status}}</td>
-            <td>{{format-date dueDate}}</td>
-            <td>{{format-markdown description}}</td>
-            <td><span class="badge">{{format-float progress.percent}}%</span></td>
-            <td>{{format-float progress.current}}/{{format-float progress.total}}</td>
-            <td>{{format-float progress.estimate}}</td>
-            <td>{{format-displayname reporter.displayName}}</td>
-            <td>
-                <a class="pointer" {{action 'openModal' 'modal' subtasks}} title="Details"><span class="glyphicon glyphicon-th-list"></span></a>&nbsp;
-                <a href="https://jira3.inside.nsn.com/browse/{{unbound key}}" target="_blank" title="View in Jira"><span class="glyphicon glyphicon-share-alt"></span></a>
-                <!--<a {{bind-attr href=url}}><span class="glyphicon glyphicon-share"></span></a>-->
-            </td>
-        </tr>
-        {{/each}}
-        </tbody>
-    </table>
+        {{outlet}}
     </div>
-    {{outlet modal}}
+</div>
+{% endhandlebars %}
+
+{% handlebars "project/table" %}
+<table class='epics table table-striped'>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Probable delivery</th>
+        <th>Description</th>
+        <th>Progress</th>
+        <th>Burned</th>
+        <th>Initial</th>
+        <th>Requestor</th>
+        <th>Links</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each model.epics}}
+    <tr>
+        <td>{{summary}}</td>
+        <td>{{status}}</td>
+        <td>{{format-date dueDate}}</td>
+        <td>{{format-markdown description}}</td>
+        <td><span class="badge">{{format-float progress.percent}}%</span></td>
+        <td>{{format-float progress.current}}/{{format-float progress.total}}</td>
+        <td>{{format-float progress.estimate}}</td>
+        <td>{{format-displayname reporter.displayName}}</td>
+        <td>
+            <a class="pointer" {{action 'openModal' 'modal' subtasks}} title="Details"><span class="glyphicon glyphicon-th-list"></span></a>&nbsp;
+            <a href="https://jira3.inside.nsn.com/browse/{{unbound key}}" target="_blank" title="View in Jira"><span class="glyphicon glyphicon-share-alt"></span></a>
+            <!--<a {{bind-attr href=url}}><span class="glyphicon glyphicon-share"></span></a>-->
+        </td>
+    </tr>
+    {{/each}}
+    </tbody>
+</table>
+{{outlet modal}}
+{% endhandlebars %}
+
+
+{% handlebars "project/charts" %}
+<div>
+    DUPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+</div>
 {% endhandlebars %}
 
 {% verbatim %}
@@ -132,14 +144,6 @@
     <div class="modal">
       {{yield}}
     </div>
-{% endhandlebars %}
-
-{% handlebars "about" %}
-<div class='about'>
-    <p>
-        Here will be project statistics
-    </p>
-</div>
 {% endhandlebars %}
 
 <script src="{% static 'libs/jquery/dist/jquery.min.js'%}"></script>

@@ -4,27 +4,11 @@ App.ProjectsRoute = Ember.Route.extend({
         return App.Rest.get('/backlog/api/projects');
     },
     afterModel: function(projects, transition) {
-      this.transitionTo('project', projects.get('firstObject').key);
+      this.transitionTo('project.table', projects.get('firstObject').key);
   }
 });
 
 App.ProjectRoute = Ember.Route.extend({
-    actions: {
-        openModal: function(modalName, model) {
-            this.controllerFor(modalName).set('model', model);
-            return this.render(modalName, {
-                into: 'project',
-                outlet: 'modal'
-            });
-        },
-
-        closeModal: function() {
-            return this.disconnectOutlet({
-                outlet: 'modal',
-                parentView: 'project'
-            });
-        }
-    },
     model: function(params) {
         var model = Ember.RSVP.hash({
             project: App.Rest.get('/backlog/api/projects/' + params.project_id),
@@ -41,8 +25,35 @@ App.ProjectRoute = Ember.Route.extend({
     }
 });
 
-App.ProjectView = Ember.View.extend({
+App.ProjectTableRoute = Ember.Route.extend({
+    actions: {
+        openModal: function(modalName, model) {
+            this.controllerFor(modalName).set('model', model);
+            return this.render(modalName, {
+                into: 'project/table',
+                outlet: 'modal'
+            });
+        },
+        closeModal: function() {
+            return this.disconnectOutlet({
+                outlet: 'modal',
+                parentView: 'project'
+            });
+        }
+    }
+});
+
+App.ProjectTableView = Ember.View.extend({
     url: function() {
         return 'https://jira3.inside.nsn.com/browse/' + this.get('controller.model').project.key;
     }.property()
+});
+
+App.ProjectChartsRoute = Ember.Route.extend({
+
+
+});
+
+App.ProjectChartsView = Ember.View.extend({
+
 });
