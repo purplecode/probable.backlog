@@ -2,7 +2,11 @@
     text-align: right;
 }
 
-.projects {
+.navbar-nav>li>a.active {
+  color:  #18bc9c;
+}
+
+.project {
   margin-right: 30px;
   margin-left: 30px;
 }
