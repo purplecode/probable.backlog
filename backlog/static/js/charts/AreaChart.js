@@ -13,7 +13,7 @@ function AreaChart(selection) {
         .range([0, width]);
 
     var y = d3.scale.linear()
-        .range([height,0]);
+        .range([height, 0]);
 
     var color = d3.scale.category20();
 
@@ -41,10 +41,9 @@ function AreaChart(selection) {
             return d.values;
         });
 
-
     var chart = {
 
-        draw: function(data) {
+        draw: function(chartData) {
 
             var svg = d3.select(selection).append("svg")
                 .attr("width", width + margin.left + margin.right)
@@ -52,58 +51,18 @@ function AreaChart(selection) {
                 .append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-            var parseDate = d3.time.format("%Y-%m-%d").parse;
+            color.domain(chartData.getColorDomain());
 
+            x.domain(chartData.getXDomain());
 
-            var t1 = "2011-01-01";
-            var t2 = "2011-01-02";
-            var t3 = "2011-01-03";
-            var t4 = "2011-01-04";
+            y.domain(chartData.getYDomain());
 
-            var data = [{
-                name: 'A',
-                values: [{
-                    date: parseDate(t1),
-                    y: 0.2
-                }, {
-                    date: parseDate(t2),
-                    y: 0.4
-                }, {
-                    date: parseDate(t3),
-                    y: 4
-                }, {
-                    date: parseDate(t4),
-                    y: 4
-                }]
-            }, {
-                name: 'B',
-                values: [{
-                    date: parseDate(t1),
-                    y: 0.1
-                }, {
-                    date: parseDate(t2),
-                    y: 0.3
-                }, {
-                    date: parseDate(t3),
-                    y: 3
-                }, {
-                    date: parseDate(t4),
-                    y: 4
-                }]
-            }];
-
-            color.domain(['A', 'B']);
-
-            x.domain([parseDate(t1), parseDate(t4)]);
-
-            y.domain([0,4]);
-
-            var browser = svg.selectAll(".browser")
-                .data(data)
+            var series = svg.selectAll(".series")
+                .data(chartData.getSeries())
                 .enter().append("g")
-                .attr("class", "browser");
+                .attr("class", "series");
 
-            browser.append("path")
+            series.append("path")
                 .attr("class", "area")
                 .attr("d", function(d) {
                     return area(d.values);
@@ -111,23 +70,6 @@ function AreaChart(selection) {
                 .style("fill", function(d) {
                     return color(d.name);
                 });
-
-            // browser.append("text")
-            //     .datum(function(d) {
-            //         return {
-            //             name: d.name,
-            //             value: d.values[d.values.length - 1]
-            //         };
-            //     })
-            //     .attr("transform", function(d) {
-            //         return "translate(" + x(d.value.date) + "," + y(d.value.y0 + d.value.y / 2) + ")";
-            //     })
-            //     .attr("x", -6)
-            //     .attr("dy", ".35em")
-            //     .text(function(d) {
-            //         return d.name;
-            //     });
-
 
             svg.append("g")
                 .attr("class", "x axis")
