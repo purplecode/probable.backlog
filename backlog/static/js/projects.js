@@ -1,11 +1,10 @@
-
 App.ProjectsRoute = Ember.Route.extend({
     model: function() {
         return App.Rest.get('/backlog/api/projects');
     },
     afterModel: function(projects, transition) {
-      this.transitionTo('project.table', projects.get('firstObject').key);
-  }
+        this.transitionTo('project.table', projects.get('firstObject').key);
+    }
 });
 
 App.ProjectRoute = Ember.Route.extend({
@@ -24,7 +23,7 @@ App.ProjectRoute = Ember.Route.extend({
         return model;
     },
     afterModel: function() {
-      this.transitionTo('project.table');
+        this.transitionTo('project.table');
     }
 });
 
@@ -52,40 +51,21 @@ App.ProjectTableView = Ember.View.extend({
     }.property()
 });
 
-App.ProjectChartsRoute = Ember.Route.extend({
-});
+App.ProjectChartsController = Ember.Controller.extend({});
 
-App.ProjectChartsController = Ember.Controller.extend({
-  content: [
-    {
-        "label": "Equity",
-        "value": 12935781.176999997,
-        "type": "money"
+App.BarGraph = Ember.View.extend({
+
+    classNames: ['chart'],
+
+    didInsertElement: function() {
+        Ember.run.once(this, 'updateChart');
     },
-    {
-        "label": "Real Assets",
-        "value": 10475849.276172025,
-        "type": "money"
-    },
-    {
-        "label": "Fixed Income",
-        "value": 8231078.16438347,
-        "type": "money"
-    },
-    {
-        "label": "Cash & Cash Equivalent",
-        "value": 5403418.115000006,
-        "type": "money"
-    },
-    {
-        "label": "Hedge Fund",
-        "value": 1621341.246006786,
-        "type": "money"
-    },
-    {
-        "label": "Private Equity",
-        "value": 1574677.59,
-        "type": "money"
+
+    updateChart: function() {
+        var $el = this.$()[0];
+        var chart = new AreaChart($el);
+        var data = this.get('data').history || [];
+        chart.draw(data);
     }
-  ]
+
 });

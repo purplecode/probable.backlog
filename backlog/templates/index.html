@@ -92,9 +92,23 @@
 
 
 {% handlebars "project/charts" %}
-<div>
-    {{pie-chart data=content}}
-</div>
+<table class='epics table table-striped'>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each model.epics}}
+    <tr>
+        <td>{{summary}}</td>
+        <td>{{view App.BarGraph dataBinding="this"}}</td>
+    </tr>
+    {{/each}}
+    </tbody>
+</table>
+{{outlet modal}}
 {% endhandlebars %}
 
 {% verbatim %}
@@ -150,6 +164,9 @@
 <script src="{% static 'libs/ember/ember.min.js'%}"></script>
 <script src="{% static 'libs/showdown/compressed/showdown.js'%}"></script>
 <script src="{% static 'libs/moment/min/moment.min.js'%}"></script>
+<script src="{% static 'libs/d3/d3.js'%}"></script>
+<script src="{% static 'js/charts/PieChart.js'%}"></script>
+<script src="{% static 'js/charts/AreaChart.js'%}"></script>
 <script src="{% static 'js/app.js'%}"></script>
 <script src="{% static 'js/modal.js'%}"></script>
 <script src="{% static 'js/rest.js'%}"></script>
