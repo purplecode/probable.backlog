@@ -31,7 +31,9 @@ class Issue(object):
     history = self.previous.get('history') or []
     progress = self.getProgress()
     progress['datetime'] = datetime.datetime.now().isoformat()
-    return history + [progress]
+    if progress['total'] > 0:
+      history += [progress]
+    return history
 
   def getModel(self):
     issue = self.issue

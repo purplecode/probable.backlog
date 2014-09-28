@@ -63,10 +63,13 @@ App.BarGraph = Ember.View.extend({
 
     updateChart: function() {
         var $el = this.$()[0];
-        var chart = new AreaChart($el);
-        var history = this.get('data').history || [];
-        var chartData = new ChartData(history);
-        chart.draw(chartData);
+        var history = this.get('data').history;
+        if(!_.isEmpty(history) && history.length > 1) {
+            var dueDate = this.get('data').dueDate;
+            var chartData = new ChartData(history, dueDate);
+            var chart = new AreaChart($el);
+            chart.draw(chartData);
+        }
     }
 
 });

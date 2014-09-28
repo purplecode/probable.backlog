@@ -62,7 +62,6 @@
                 .attr("cx", 0)
                 .attr("r", "0.4em")
                 .style("fill", function(d) {
-                    console.log(d.value.color);
                     return d.value.color
                 })
 

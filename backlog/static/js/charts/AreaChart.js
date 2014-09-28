@@ -36,6 +36,14 @@ function AreaChart(selection) {
             return y(0 + d.y);
         });
 
+    var line = d3.svg.line()
+        .x(function(d) {
+            return x(d.date);
+        })
+        .y(function(d) {
+            return y(d.y);
+        });
+
     var stack = d3.layout.stack()
         .values(function(d) {
             return d.values;
@@ -58,7 +66,7 @@ function AreaChart(selection) {
             y.domain(chartData.getYDomain());
 
             var series = svg.selectAll(".series")
-                .data(chartData.getSeries())
+                .data(chartData.getAreaSeries())
                 .enter().append("g")
                 .attr("data-legend", function(d) {
                     return d.name;
@@ -77,6 +85,14 @@ function AreaChart(selection) {
                     return color(d.name);
                 });
 
+            svg.append("path")
+                .datum(chartData.getLineSeries())
+                .attr("class", "line")
+                .attr("d", line)
+                .style("stroke-dasharray", ("10, 5"))
+                .style("stroke", "#2C3E50")
+                .style("stroke-width", 3);
+
             svg.append("g")
                 .attr("class", "x axis")
                 .attr("transform", "translate(0," + height + ")")
@@ -93,9 +109,9 @@ function AreaChart(selection) {
 
             svg.append("g")
                 .attr("class", "legend")
-                .attr("transform", "translate(" + (width-100) + ",0)")
+                .attr("transform", "translate(" + (width - 100) + ",0)")
                 .style("font-size", "1.2em")
-                .call(d3.legend)
+                .call(d3.legend);
         }
     };
 
