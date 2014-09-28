@@ -13,7 +13,7 @@ function AreaChart(selection) {
         .range([0, width]);
 
     var y = d3.scale.linear()
-        .range([height, 0]);
+        .range([height,0]);
 
     var color = d3.scale.category20();
 
@@ -70,10 +70,10 @@ function AreaChart(selection) {
                     y: 0.4
                 }, {
                     date: parseDate(t3),
-                    y: 3
+                    y: 4
                 }, {
                     date: parseDate(t4),
-                    y: 3
+                    y: 4
                 }]
             }, {
                 name: 'B',
@@ -85,7 +85,7 @@ function AreaChart(selection) {
                     y: 0.3
                 }, {
                     date: parseDate(t3),
-                    y: 4
+                    y: 3
                 }, {
                     date: parseDate(t4),
                     y: 4
@@ -95,6 +95,8 @@ function AreaChart(selection) {
             color.domain(['A', 'B']);
 
             x.domain([parseDate(t1), parseDate(t4)]);
+
+            y.domain([0,4]);
 
             var browser = svg.selectAll(".browser")
                 .data(data)
