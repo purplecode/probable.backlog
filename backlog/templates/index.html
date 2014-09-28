@@ -96,6 +96,8 @@
     <thead>
     <tr>
         <th>Name</th>
+        <th>Progress</th>
+        <th>Burned</th>
         <th></th>
     </tr>
     </thead>
@@ -103,6 +105,8 @@
     {{#each model.epics}}
     <tr>
         <td>{{summary}}</td>
+        <td><span class="badge">{{format-float progress.percent}}%</span></td>
+        <td>{{format-float progress.current}}/{{format-float progress.total}}</td>
         <td>{{view App.BarGraph dataBinding="this"}}</td>
     </tr>
     {{/each}}
@@ -166,7 +170,6 @@
 <script src="{% static 'libs/showdown/compressed/showdown.js'%}"></script>
 <script src="{% static 'libs/moment/min/moment.min.js'%}"></script>
 <script src="{% static 'libs/d3/d3.js'%}"></script>
-<script src="{% static 'js/charts/PieChart.js'%}"></script>
 <script src="{% static 'js/charts/AreaChart.js'%}"></script>
 <script src="{% static 'js/charts/ChartData.js'%}"></script>
 <script src="{% static 'js/charts/ChartLegend.js'%}"></script>

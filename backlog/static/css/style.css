@@ -23,6 +23,10 @@
     max-width: 400px;
 }
 
+.epics td:first-child {
+   max-width: 150px;
+}
+
 .modal {
   margin: 10px auto;
   width: 50%;
