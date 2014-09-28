@@ -60,6 +60,12 @@ function AreaChart(selection) {
             var series = svg.selectAll(".series")
                 .data(chartData.getSeries())
                 .enter().append("g")
+                .attr("data-legend", function(d) {
+                    return d.name;
+                })
+                .attr("data-legend-color", function(d) {
+                    return color(d.name);
+                })
                 .attr("class", "series");
 
             series.append("path")
@@ -84,6 +90,12 @@ function AreaChart(selection) {
             svg.append("g")
                 .attr("class", "y axis")
                 .call(yAxis);
+
+            svg.append("g")
+                .attr("class", "legend")
+                .attr("transform", "translate(" + (width-100) + ",0)")
+                .style("font-size", "1.2em")
+                .call(d3.legend)
         }
     };
 
