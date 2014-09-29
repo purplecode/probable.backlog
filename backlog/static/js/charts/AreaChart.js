@@ -1,4 +1,4 @@
-function AreaChart(selection) {
+function AreaChart(selection, width, height) {
 
     var margin = {
             top: 20,
@@ -6,8 +6,8 @@ function AreaChart(selection) {
             bottom: 50,
             left: 50
         },
-        width = 800 - margin.left - margin.right,
-        height = 300 - margin.top - margin.bottom;
+        width = (width || 800) - margin.left - margin.right,
+        height = (height || 300) - margin.top - margin.bottom;
 
     var x = d3.time.scale()
         .range([0, width]);
