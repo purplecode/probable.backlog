@@ -27,22 +27,30 @@ App.ProjectRoute = Ember.Route.extend({
     }
 });
 
-App.ProjectTableRoute = Ember.Route.extend({
-    actions: {
+var modalActions = function(scope) {
+    return {
         openModal: function(modalName, model) {
             this.controllerFor(modalName).set('model', model);
             return this.render(modalName, {
-                into: 'project/table',
+                into: 'project/'+scope,
                 outlet: 'modal'
             });
         },
         closeModal: function() {
             return this.disconnectOutlet({
                 outlet: 'modal',
-                parentView: 'project.table'
+                parentView: 'project.'+scope
             });
         }
-    }
+    };
+};
+
+App.ProjectTableRoute = Ember.Route.extend({
+    actions: modalActions('table')
+});
+
+App.ProjectChartsRoute = Ember.Route.extend({
+    actions: modalActions('charts')
 });
 
 App.ProjectTableView = Ember.View.extend({
