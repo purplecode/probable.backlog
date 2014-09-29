@@ -8,7 +8,7 @@ class Story(Issue):
     return Issue.getParentKey(self)
 
   def getSubtasks(self):
-    map(self.__createSubtask, self.issue.fields.subtasks)
+    return map(self.__createSubtask, self.issue.fields.subtasks)
 
   def __createSubtask(self, subtask):
     fields = subtask.fields

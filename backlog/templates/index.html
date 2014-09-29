@@ -96,18 +96,23 @@
     <thead>
     <tr>
         <th>Name</th>
+        <th></th>
         <th>Progress</th>
         <th>Burned</th>
-        <th></th>
+        <th>Links</th>
     </tr>
     </thead>
     <tbody>
     {{#each model.epics}}
     <tr>
         <td>{{summary}}</td>
+        <td>{{view App.BarGraph dataBinding="this"}}</td>
         <td><span class="badge">{{format-float progress.percent}}%</span></td>
         <td>{{format-float progress.current}}/{{format-float progress.total}}</td>
-        <td>{{view App.BarGraph dataBinding="this"}}</td>
+        <td>
+            <a class="pointer" {{action 'openModal' 'modal' subtasks}} title="Details"><span class="glyphicon glyphicon-th-list"></span></a>&nbsp;
+            <a href="https://jira3.inside.nsn.com/browse/{{unbound key}}" target="_blank" title="View in Jira"><span class="glyphicon glyphicon-share-alt"></span></a>
+        </td>
     </tr>
     {{/each}}
     </tbody>

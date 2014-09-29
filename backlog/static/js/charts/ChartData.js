@@ -15,6 +15,11 @@
             };
         };
 
+        var daysBetween = function(date1, date2) {
+            var difference = Math.abs(date1.getTime() - date2.getTime());
+            return Math.round(difference / (1000 * 60 * 60 * 24));
+        };
+
         return {
             getAreaSeries: function() {
                 return [series('total'), series('current')];
@@ -33,10 +38,14 @@
             getColorDomain: function() {
                 return ['total', 'current'];
             },
-            getXDomain : function() {
+            getXDomain: function() {
                 var min = _.first(history).datetime;
                 var max = _.last(history).datetime;
                 return [parseISODate(min), d3.max([parseSimpleDate(dueDate), parseISODate(max)])];
+            },
+            getXDaysSpan: function() {
+                var domain = this.getXDomain();
+                return daysBetween(domain[0], domain[1]);
             },
             getYDomain: function() {
                 var min = 0;

@@ -6,3 +6,6 @@ class Task(Issue):
     if hasattr(self.issue.fields, 'parent') and self.issue.fields.parent.key:
       return self.issue.fields.parent.key
     return Issue.getParentKey(self)
+
+  def getStatus(self):
+    return self.issue.fields.status.name

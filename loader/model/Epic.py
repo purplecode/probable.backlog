@@ -7,7 +7,7 @@ class Epic(Issue):
     self.stories = list(stories.find({'parent': self.getKey()}))
 
   def getSubtasks(self):
-    return map(self.__createSubtask, self.stories)
+    return map(self.__createSubtask, self.stories) or []
 
   def getProgress(self):
     result = {

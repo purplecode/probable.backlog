@@ -18,7 +18,7 @@ function AreaChart(selection) {
     var color = d3.scale.category20();
 
     var xAxis = d3.svg.axis()
-        .scale(x).ticks(d3.time.days, 1)
+        .scale(x)
         .orient("bottom");
 
     var yAxis = d3.svg.axis()
@@ -49,6 +49,16 @@ function AreaChart(selection) {
             return d.values;
         });
 
+    var adjustXAxis = function(daysSpan) {
+        if (daysSpan <= 7) {
+            xAxis.ticks(d3.time.days, 1)
+        } else if (daysSpan <= 4 * 7) {
+            xAxis.ticks(d3.time.days, 3)
+        } else {
+            xAxis.ticks(d3.time.weeks, 1)
+        }
+    };
+
     var chart = {
 
         draw: function(chartData) {
@@ -64,6 +74,8 @@ function AreaChart(selection) {
             x.domain(chartData.getXDomain());
 
             y.domain(chartData.getYDomain());
+
+            adjustXAxis(chartData.getXDaysSpan());
 
             var series = svg.selectAll(".series")
                 .data(chartData.getAreaSeries())

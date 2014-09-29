@@ -16,6 +16,14 @@ class Issue(object):
   def getSubtasks(self):
     return []
 
+  def getStatus(self):
+    statuses = set([subtask['status'] for subtask in self.getSubtasks()])
+    if not statuses or statuses == set(['Open']):
+      return 'Open'
+    if statuses == set(['Resolved', 'Closed']):
+      return 'In Review'
+    return 'In Progress'
+
   def getProgress(self):
     toHours = lambda obj, key, unit=3600.0: float(getattr(obj, key))/unit if hasattr(obj, key) and getattr(obj, key) else 0.0
     fields = self.issue.fields
@@ -43,7 +51,7 @@ class Issue(object):
       "order": self.order,
       "url": issue.self,
       "priority": fields.priority.name,
-      "status": fields.status.name,
+      "status": self.getStatus(),
       "issueType": fields.issuetype.name,
       "summary": fields.summary,
       "project_name": fields.project.name,
