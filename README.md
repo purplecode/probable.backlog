@@ -13,7 +13,7 @@ Prerequisites:
 
 ![](https://raw.github.com/purplecode/probable.backlog/master/docs/board.png)
 **************************
-![](https://raw.github.com/purplecode/probable.backlog/master/docs/texts.png)
+![](https://raw.github.com/purplecode/probable.backlog/master/docs/charts.png)
 **************************
 
 
