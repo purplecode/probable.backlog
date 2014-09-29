@@ -27,6 +27,10 @@
    max-width: 150px;
 }
 
+th.chart {
+  width: 60%;
+}
+
 .modal {
   margin: 10px auto;
   width: 50%;

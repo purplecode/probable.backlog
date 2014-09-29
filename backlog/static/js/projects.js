@@ -76,7 +76,7 @@ App.BarGraph = Ember.View.extend({
         if(!_.isEmpty(history) && history.length > 1 && data.status != 'Open') {
             var dueDate = data.dueDate;
             var chartData = new ChartData(history, dueDate);
-            var chart = new AreaChart($el);
+            var chart = new AreaChart($el, $($el).width());
             chart.draw(chartData);
         }
     }
