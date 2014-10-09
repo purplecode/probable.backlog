@@ -24,16 +24,20 @@
             getAreaSeries: function() {
                 return [series('total'), series('current')];
             },
-            getLineSeries: function() {
+            getLinesSeries: function() {
                 var first = _.first(history);
                 var last = _.last(history);
-                return [{
+                var optimal = [{
                     date: parseISODate(first.datetime),
                     y: first.current
                 }, {
                     date: parseSimpleDate(dueDate),
                     y: last.total
+                }, {
+                    date: parseSimpleDate(dueDate),
+                    y: 0
                 }];
+                return [optimal];
             },
             getColorDomain: function() {
                 return ['total', 'current'];

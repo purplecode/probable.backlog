@@ -59,7 +59,7 @@ class Issue(object):
       "last_update": fields.updated,
       "labels": fields.labels,
       "versions": map(lambda version: version.name, fields.versions),
-      "dueDate": fields.duedate,
+      "dueDate": fields.duedate or "",
       "creationDate": fields.created,
       "resolutionDate": fields.resolutiondate,
       "fixVersions": map(lambda version: version.name, fields.fixVersions),

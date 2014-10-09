@@ -97,14 +97,17 @@ function AreaChart(selection, width, height) {
                     return color(d.name);
                 });
 
-            svg.append("path")
-                .datum(chartData.getLineSeries())
-                .attr("class", "line")
-                .attr("d", line)
-                .style("stroke-dasharray", ("10, 5"))
-                .style("stroke", "#2C3E50")
-                .style("stroke-width", 3);
-
+            _.each(chartData.getLinesSeries(), function(series) {
+                svg.append("path")
+                    .datum(series)
+                    .attr("class", "line")
+                    .attr("d", line)
+                    .style("fill", "transparent")
+                    .style("stroke-dasharray", ("10, 5"))
+                    .style("stroke", "#2C3E50")
+                    .style("stroke-width", 3);    
+            });
+            
             svg.append("g")
                 .attr("class", "x axis")
                 .attr("transform", "translate(0," + height + ")")
