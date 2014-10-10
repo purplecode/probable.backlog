@@ -59,6 +59,19 @@ App.ProjectTableView = Ember.View.extend({
     }.property()
 });
 
+App.BacklogItemView = Ember.View.extend({
+    templateName: 'backlog-item',
+    classNames: 'backlog-item',
+    labelClass: function() {
+        var status = this.get('data').status;
+        var classes = {
+            'In Progress' : 'label-success',
+            'Open' : 'label-info'
+        };
+        return classes[status] || 'label-default';
+    }.property()
+});
+
 App.ProjectChartsController = Ember.Controller.extend({});
 
 App.ProjectSummaryController = Ember.Controller.extend({});

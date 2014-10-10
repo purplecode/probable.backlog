@@ -54,6 +54,13 @@
 {% endhandlebars %}
 
 {% handlebars "project/table" %}
+<div class="backlog-row">
+    {{#each model.epics}}
+        {{view App.BacklogItemView dataBinding="this"}}
+    {{/each}}
+</div>
+
+
 <table class='epics table table-striped'>
     <thead>
     <tr>
@@ -91,6 +98,17 @@
 {{outlet modal}}
 {% endhandlebars %}
 
+{% verbatim %}
+  <script type="text/x-handlebars" data-template-name="backlog-item">
+    <div class="header">
+        <div class="title">{{summary}}</div>
+        <div {{bindAttr class=":status :label view.labelClass"}}>{{status}}</div>
+    </div>
+    <div class="content">
+        {{format-markdown description}}
+    </div>
+  </script>
+{% endverbatim %}
 
 {% handlebars "project/charts" %}
 <table class='epics table table-striped'>
