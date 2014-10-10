@@ -31,6 +31,13 @@ th.chart {
   width: 60%;
 }
 
+.summary {
+  height: 70%;
+  width: 80%;
+  position: fixed;
+  margin-left: 10%
+}
+
 .modal {
   margin: 10px auto;
   width: 50%;

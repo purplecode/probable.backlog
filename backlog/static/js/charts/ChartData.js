@@ -20,7 +20,7 @@ ChartData.prototype = {
                     };
                 }, this)
             };
-        }
+        },
     },
     getAreaSeries: function() {
         return [];

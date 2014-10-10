@@ -1,8 +1,8 @@
 function AreaChart(selection, width, height) {
 
     var margin = {
-            top: 20,
-            right: 50,
+            top: 30,
+            right: 100,
             bottom: 50,
             left: 50
         },
@@ -110,12 +110,11 @@ function AreaChart(selection, width, height) {
 
             _.each(chartData.getTextSeries(), function(series) {
                 svg.append("text")
-                    .attr("x", (width / 2))
-                    .attr("y", 0 - (margin.top / 2))
-                    .attr("text-anchor", "middle")
-                    .style("font-size", "16px")
-                    .style("text-decoration", "underline")
-                    .text("Value vs Date Graph");
+                    .style("font-size", "20px")
+                    .attr("dy", ".35em")
+                    .attr("text-anchor", "begin")
+                    .attr("transform", "translate("+(x(series.date)+3)+","+(y(series.y)-10)+") rotate(-30)")
+                    .text(series.text);
             });
 
             if (chartData.xAxisLabels) {

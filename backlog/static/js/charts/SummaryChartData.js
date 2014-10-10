@@ -3,26 +3,28 @@ var SummaryChartData = function(epics) {
 };
 
 SummaryChartData.prototype = _.extend({}, ChartData.prototype, {
-    yAxisLabels : false,
+    yAxisLabels: false,
+    today: new Date(),
     getAreaSeries: function() {
         return [];
     },
     getLinesSeries: function() {
-        return _.map(this.epics, function(epic) {
-            return [{
-                date: this.utils.parseSimpleDate(epic.dueDate),
-                y: 10
-            }, {
-                date: this.utils.parseSimpleDate(epic.dueDate),
-                y: 0
-            }];
-        }, this);
+        return _.pluck(this._getSeries(), 'line');
+    },
+    getTextSeries: function() {
+        return _.pluck(this._getSeries(), 'text');
     },
     getColorDomain: function() {
         return [];
     },
     getXDomain: function() {
-        var min = new Date();
+        var min = _.min(this.epics, function(epic) {
+            return epic.dueDate.replace(/-/g, '');
+        }).dueDate;
+        min = this.utils.parseSimpleDate(min);
+        min = d3.min([new Date(this.today), min])
+        min.setDate(min.getDate() - 2);
+
         var max = _.max(this.epics, function(epic) {
             return epic.dueDate.replace(/-/g, '');
         }).dueDate;
@@ -35,6 +37,44 @@ SummaryChartData.prototype = _.extend({}, ChartData.prototype, {
         return this.utils.daysBetween(domain[0], domain[1]);
     },
     getYDomain: function() {
-        return [0, 10];
+        return [0, this.epics.length*2+10];
+    },
+    _getSeries: function() {
+
+        var counter = 1;
+        var today = {
+            line: [{
+                date: this.today,
+                y: 2*counter
+            }, {
+                date: this.today,
+                y: -5
+            }],
+            text: {
+                date: this.today,
+                y: 2*counter,
+                text: 'Today'
+            }
+        };
+
+        var epics = _.map(this.epics, function(epic) {
+            counter++;
+            return {
+                line: [{
+                    date: this.utils.parseSimpleDate(epic.dueDate),
+                    y: 2*counter
+                }, {
+                    date: this.utils.parseSimpleDate(epic.dueDate),
+                    y: -5
+                }],
+                text: {
+                    date: this.utils.parseSimpleDate(epic.dueDate),
+                    y: 2*counter,
+                    text: epic.summary
+                }
+            };
+        }, this);
+
+        return [today].concat(epics);
     }
 });

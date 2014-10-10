@@ -98,7 +98,7 @@ App.SummaryGraph = Ember.View.extend({
         var data = this.get('data');
         var epics = _.filter(data.epics, function(epic) { return !_.isEmpty(epic.dueDate); });
         var chartData = new SummaryChartData(epics);
-        var chart = new AreaChart($el, $($el).width());
+        var chart = new AreaChart($el, $($el).width(), 600);
         chart.draw(chartData);
     }
 
