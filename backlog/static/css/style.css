@@ -91,13 +91,25 @@ th.chart {
   display: inline-block; 
 }
 
-.backlog-item .header .status {
+.backlog-item .header .menu {
   float: right;
-  font-size: 90%;
 }
 
+.backlog-item .header .menu a {
+  color: white;
+}
 
+.backlog-item .content .description{
+  max-height: 50vh;
+  overflow: auto;
+}
 
+.backlog-item .content .label {
+  float: right;
+  font-size: 110%;
+  font-size: 1.1em;
+  margin-right: 5px;
+}
 
 .backlog-item .content {
   padding: 10px;

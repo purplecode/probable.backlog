@@ -41,8 +41,8 @@
         <div class="col-md-6 right">
             <div class="btn-group mode-switch">
                 {{#link-to 'project.table' project.id classNames="btn btn-default"}}<span class="fa fa-table"></span>{{/link-to}}
-                {{#link-to 'project.charts' project.id classNames="btn btn-default"}}<span class="fa fa-area-chart"></span>{{/link-to}}
                 {{#link-to 'project.summary' project.id classNames="btn btn-default"}}<span class="fa fa-line-chart"></span>{{/link-to}}
+                {{#link-to 'project.charts' project.id classNames="btn btn-default"}}<span class="fa fa-area-chart"></span>{{/link-to}}
             </div>
         </div>
     </div>
@@ -59,42 +59,6 @@
         {{view App.BacklogItemView dataBinding="this"}}
     {{/each}}
 </div>
-
-
-<table class='epics table table-striped'>
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Probable delivery</th>
-        <th>Description</th>
-        <th>Progress</th>
-        <th>Burned</th>
-        <th>Initial</th>
-        <th>Requestor</th>
-        <th>Links</th>
-    </tr>
-    </thead>
-    <tbody>
-    {{#each model.epics}}
-    <tr>
-        <td>{{summary}}</td>
-        <td>{{status}}</td>
-        <td>{{format-date dueDate}}</td>
-        <td>{{format-markdown description}}</td>
-        <td><span class="badge">{{format-float progress.percent}}%</span></td>
-        <td>{{format-float progress.current}}/{{format-float progress.total}}</td>
-        <td>{{format-float progress.estimate}}</td>
-        <td>{{format-displayname reporter.displayName}}</td>
-        <td>
-            <a class="pointer" {{action 'openModal' 'modal' subtasks}} title="Details"><span class="glyphicon glyphicon-th-list"></span></a>&nbsp;
-            <a href="https://jira3.inside.nsn.com/browse/{{unbound key}}" target="_blank" title="View in Jira"><span class="glyphicon glyphicon-share-alt"></span></a>
-            <!--<a {{bind-attr href=url}}><span class="glyphicon glyphicon-share"></span></a>-->
-        </td>
-    </tr>
-    {{/each}}
-    </tbody>
-</table>
 {{outlet modal}}
 {% endhandlebars %}
 
@@ -102,10 +66,25 @@
   <script type="text/x-handlebars" data-template-name="backlog-item">
     <div class="header">
         <div class="title">{{summary}}</div>
-        <div {{bindAttr class=":status :label view.labelClass"}}>{{status}}</div>
+        <div class="menu">
+            <a class="pointer" {{action 'openModal' 'modal' subtasks}} title="Details"><span class="glyphicon glyphicon-th-list"></span></a>&nbsp;
+            <a href="https://jira3.inside.nsn.com/browse/{{unbound key}}" target="_blank" title="View in Jira"><span class="glyphicon glyphicon-share-alt"></span></a>
+            <!--<a {{bind-attr href=url}}><span class="glyphicon glyphicon-share"></span></a>-->
+        </div>
     </div>
     <div class="content">
-        {{format-markdown description}}
+        <div class="details">
+            <div {{bindAttr class=":label view.labelClass"}}>{{format-float progress.percent}}%</div>
+            <div {{bindAttr class=":label view.labelClass"}}>{{status}}</div>
+            <div><span>Reporter:</span> {{format-displayname reporter.displayName}}</div>
+            <div><span>Progress:</span> {{format-float progress.current}}/{{format-float progress.total}}</div>
+            <div><span>Estimates:</span> {{format-float progress.estimate}}</div>
+            <div><span>Probable delivery:</span> {{format-date dueDate}}</div>
+        </div>
+        <hr>
+        <div class="description">
+            {{format-markdown description}}
+        </div>
     </div>
   </script>
 {% endverbatim %}
