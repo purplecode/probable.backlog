@@ -105,22 +105,36 @@ function AreaChart(selection, width, height) {
                     .style("fill", "transparent")
                     .style("stroke-dasharray", ("10, 5"))
                     .style("stroke", "#2C3E50")
-                    .style("stroke-width", 3);    
+                    .style("stroke-width", 3);
             });
-            
-            svg.append("g")
-                .attr("class", "x axis")
-                .attr("transform", "translate(0," + height + ")")
-                .call(xAxis).selectAll("text")
-                .attr("y", 10)
-                .attr("x", 9)
-                .attr("dy", ".35em")
-                .attr("transform", "rotate(30)")
-                .style("text-anchor", "start");
 
-            svg.append("g")
-                .attr("class", "y axis")
-                .call(yAxis);
+            _.each(chartData.getTextSeries(), function(series) {
+                svg.append("text")
+                    .attr("x", (width / 2))
+                    .attr("y", 0 - (margin.top / 2))
+                    .attr("text-anchor", "middle")
+                    .style("font-size", "16px")
+                    .style("text-decoration", "underline")
+                    .text("Value vs Date Graph");
+            });
+
+            if (chartData.xAxisLabels) {
+                svg.append("g")
+                    .attr("class", "x axis")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(xAxis).selectAll("text")
+                    .attr("y", 10)
+                    .attr("x", 9)
+                    .attr("dy", ".35em")
+                    .attr("transform", "rotate(30)")
+                    .style("text-anchor", "start");
+            }
+
+            if (chartData.yAxisLabels) {
+                svg.append("g")
+                    .attr("class", "y axis")
+                    .call(yAxis);
+            }
 
             svg.append("g")
                 .attr("class", "legend")

@@ -41,7 +41,8 @@
         <div class="col-md-6 right">
             <div class="btn-group mode-switch">
                 {{#link-to 'project.table' project.id classNames="btn btn-default"}}<span class="fa fa-table"></span>{{/link-to}}
-                {{#link-to 'project.charts' project.id classNames="btn btn-default"}}<span class="fa fa-line-chart"></span>{{/link-to}}
+                {{#link-to 'project.charts' project.id classNames="btn btn-default"}}<span class="fa fa-area-chart"></span>{{/link-to}}
+                {{#link-to 'project.summary' project.id classNames="btn btn-default"}}<span class="fa fa-line-chart"></span>{{/link-to}}
             </div>
         </div>
     </div>
@@ -106,7 +107,7 @@
     {{#each model.epics}}
     <tr>
         <td>{{summary}}</td>
-        <td>{{view App.BarGraph dataBinding="this"}}</td>
+        <td>{{view App.ProgressBarGraph dataBinding="this"}}</td>
         <td><span class="badge">{{format-float progress.percent}}%</span></td>
         <td>{{format-float progress.current}}/{{format-float progress.total}}</td>
         <td>
@@ -118,6 +119,12 @@
     </tbody>
 </table>
 {{outlet modal}}
+{% endhandlebars %}
+
+{% handlebars "project/summary" %}
+<div>
+    {{view App.SummaryGraph dataBinding="model"}}
+</div>
 {% endhandlebars %}
 
 {% verbatim %}
@@ -168,7 +175,7 @@
 {% endhandlebars %}
 
 <script src="{% static 'libs/jquery/dist/jquery.min.js'%}"></script>
-<script src="{% static 'libs/lodash/dist/lodash.min.js'%}"></script>
+<script src="{% static 'libs/lodash/dist/lodash.js'%}"></script>
 <script src="{% static 'libs/bootstrap/dist/js/bootstrap.min.js'%}"></script>
 <script src="{% static 'libs/handlebars/handlebars.min.js'%}"></script>
 <script src="{% static 'libs/ember/ember.min.js'%}"></script>
@@ -177,6 +184,8 @@
 <script src="{% static 'libs/d3/d3.js'%}"></script>
 <script src="{% static 'js/charts/AreaChart.js'%}"></script>
 <script src="{% static 'js/charts/ChartData.js'%}"></script>
+<script src="{% static 'js/charts/ProgressChartData.js'%}"></script>
+<script src="{% static 'js/charts/SummaryChartData.js'%}"></script>
 <script src="{% static 'js/charts/ChartLegend.js'%}"></script>
 <script src="{% static 'js/app.js'%}"></script>
 <script src="{% static 'js/modal.js'%}"></script>

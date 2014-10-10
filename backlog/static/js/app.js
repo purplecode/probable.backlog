@@ -7,6 +7,7 @@ App.Router.map(function() {
         }, function() {
             this.route('table');
             this.route('charts');
+            this.route('summary');
         });
     });
 });

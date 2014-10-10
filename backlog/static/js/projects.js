@@ -61,7 +61,9 @@ App.ProjectTableView = Ember.View.extend({
 
 App.ProjectChartsController = Ember.Controller.extend({});
 
-App.BarGraph = Ember.View.extend({
+App.ProjectSummaryController = Ember.Controller.extend({});
+
+App.ProgressBarGraph = Ember.View.extend({
 
     classNames: ['chart'],
 
@@ -75,10 +77,29 @@ App.BarGraph = Ember.View.extend({
         var history = data.history;
         if(!_.isEmpty(history) && history.length > 1 && data.status != 'Open') {
             var dueDate = data.dueDate;
-            var chartData = new ChartData(history, dueDate);
+            var chartData = new ProgressChartData(history, dueDate);
             var chart = new AreaChart($el, $($el).width());
             chart.draw(chartData);
         }
+    }
+
+});
+
+App.SummaryGraph = Ember.View.extend({
+
+    classNames: ['chart'],
+
+    didInsertElement: function() {
+        Ember.run.once(this, 'updateChart');
+    },
+
+    updateChart: function() {
+        var $el = this.$()[0];
+        var data = this.get('data');
+        var epics = _.filter(data.epics, function(epic) { return !_.isEmpty(epic.dueDate); });
+        var chartData = new SummaryChartData(epics);
+        var chart = new AreaChart($el, $($el).width());
+        chart.draw(chartData);
     }
 
 });
