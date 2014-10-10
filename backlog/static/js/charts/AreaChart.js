@@ -15,8 +15,6 @@ function AreaChart(selection, width, height) {
     var y = d3.scale.linear()
         .range([height, 0]);
 
-    var color = d3.scale.category20();
-
     var xAxis = d3.svg.axis()
         .scale(x)
         .orient("bottom");
@@ -69,8 +67,6 @@ function AreaChart(selection, width, height) {
                 .append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-            color.domain(chartData.getColorDomain());
-
             x.domain(chartData.getXDomain());
 
             y.domain(chartData.getYDomain());
@@ -84,7 +80,7 @@ function AreaChart(selection, width, height) {
                     return d.name;
                 })
                 .attr("data-legend-color", function(d) {
-                    return color(d.name);
+                    return chartData.getColor(d.name);
                 })
                 .attr("class", "series");
 
@@ -94,17 +90,17 @@ function AreaChart(selection, width, height) {
                     return area(d.values);
                 })
                 .style("fill", function(d) {
-                    return color(d.name);
+                    return chartData.getColor(d.name);
                 });
 
             _.each(chartData.getLinesSeries(), function(series) {
                 svg.append("path")
-                    .datum(series)
+                    .datum(series.points)
                     .attr("class", "line")
                     .attr("d", line)
                     .style("fill", "transparent")
                     .style("stroke-dasharray", ("10, 5"))
-                    .style("stroke", "#2C3E50")
+                    .style("stroke", series.color || "#2C3E50")
                     .style("stroke-width", 3);
             });
 
@@ -135,11 +131,13 @@ function AreaChart(selection, width, height) {
                     .call(yAxis);
             }
 
-            svg.append("g")
-                .attr("class", "legend")
-                .attr("transform", "translate(" + (width - 100) + ",0)")
-                .style("font-size", "1.2em")
-                .call(d3.legend);
+            if(chartData.showLegend) {
+                svg.append("g")
+                    .attr("class", "legend")
+                    .attr("transform", "translate(" + (width - 100) + ",0)")
+                    .style("font-size", "1.2em")
+                    .call(d3.legend);
+            }
         }
     };
 

@@ -10,7 +10,7 @@ ProgressChartData.prototype = _.extend({}, ChartData.prototype, {
     getLinesSeries: function() {
         var first = _.first(this.history);
         var last = _.last(this.history);
-        var optimal = [{
+        var points = [{
             date: this.utils.parseISODate(first.datetime),
             y: first.current
         }, {
@@ -20,10 +20,9 @@ ProgressChartData.prototype = _.extend({}, ChartData.prototype, {
             date: this.utils.parseSimpleDate(this.dueDate),
             y: 0
         }];
-        return [optimal];
-    },
-    getColorDomain: function() {
-        return ['total', 'current'];
+        return [{
+            points: points
+        }];
     },
     getXDomain: function() {
         var min = _.first(this.history).datetime;
