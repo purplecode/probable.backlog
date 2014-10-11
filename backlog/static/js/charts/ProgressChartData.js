@@ -25,9 +25,12 @@ ProgressChartData.prototype = _.extend({}, ChartData.prototype, {
         }];
     },
     getXDomain: function() {
-        var min = _.first(this.history).datetime;
-        var max = _.last(this.history).datetime;
-        return [this.utils.parseISODate(min), d3.max([this.utils.parseSimpleDate(this.dueDate), this.utils.parseISODate(max)])];
+        var min = this.utils.parseISODate(_.first(this.history).datetime);
+        var max = this.utils.parseISODate(_.last(this.history).datetime);
+        if(this.dueDate) {
+            max = d3.max([this.utils.parseSimpleDate(this.dueDate), max])
+        }
+        return [min, max];
     },
     getXDaysSpan: function() {
         var domain = this.getXDomain();
