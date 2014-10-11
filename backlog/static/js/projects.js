@@ -9,7 +9,7 @@ App.ProjectsRoute = Ember.Route.extend({
 
 App.ProjectRoute = Ember.Route.extend({
     model: function(params) {
-        var model = Ember.RSVP.hash({
+        var model = {
             project: App.Rest.get('/backlog/api/projects/' + params.project_id),
             epics: App.Rest.post('/backlog/api/epics', {
                 sorting: {
@@ -19,10 +19,20 @@ App.ProjectRoute = Ember.Route.extend({
                     project_key: params.project_id
                 }
             })
+        };
+        return Ember.RSVP.hash(model).then(function(model) {
+            model.epics.index = lunr(function() {
+                this.field('summary', {
+                    boost: 10
+                });
+                this.field('description');
+                this.ref('key');
+            });
+            _.each(model.epics, model.epics.index.add, model.epics.index);
+            return model;
         });
-        return model;
     },
-    afterModel: function() {
+    afterModel: function(model) {
         this.transitionTo('project.table');
     }
 });
@@ -30,9 +40,11 @@ App.ProjectRoute = Ember.Route.extend({
 App.ProjectController = Ember.Controller.extend({
     search: '',
     filteredEpics: function() {
-        return _.filter(this.get('model.epics'), function(epic) {
-            return epic.summary.indexOf(this.search) > -1;
-        }, this);
+        var keys = _.pluck(this.get('model.epics').index.search(this.search), 'ref');
+        var epics = this.get('model.epics');
+        return this.search ? _.filter(epics, function(epic) {
+            return _.contains(keys, epic.key) || epic.summary.indexOf(this.search) >= 0;
+        }, this) : epics;
     }.property('model.epics', 'search')
 });
 
