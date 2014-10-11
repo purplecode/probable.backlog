@@ -32,10 +32,14 @@ th.chart {
 }
 
 .summary {
-  height: 70%;
   width: 80%;
-  position: fixed;
   margin-left: 10%
+}
+
+.summary .table {
+  width: 60%;
+  margin-left: 20%;
+  padding-top: 20px;
 }
 
 .modal {
