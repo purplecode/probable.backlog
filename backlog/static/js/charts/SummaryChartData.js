@@ -51,14 +51,14 @@ SummaryChartData.prototype = _.extend({}, ChartData.prototype, {
         var min = _.min(this.epics, function(epic) {
             return epic.dueDate.replace(/-/g, '');
         }).dueDate;
-        min = this.utils.parseSimpleDate(min);
+        min = this.utils.parseDate(min);
         min = d3.min([new Date(this.today), min])
         min.setDate(min.getDate() - 2);
 
         var max = _.max(this.epics, function(epic) {
             return epic.dueDate.replace(/-/g, '');
         }).dueDate;
-        max = this.utils.parseSimpleDate(max);
+        max = this.utils.parseDate(max);
         max.setDate(max.getDate() + 7);
         return [min, max];
     },
@@ -96,15 +96,15 @@ SummaryChartData.prototype = _.extend({}, ChartData.prototype, {
                 line: {
                     color: "#2C3E50",
                     points: [{
-                        date: this.utils.parseSimpleDate(epic.dueDate),
+                        date: this.utils.parseDate(epic.dueDate),
                         y: 2 * counter
                     }, {
-                        date: this.utils.parseSimpleDate(epic.dueDate),
+                        date: this.utils.parseDate(epic.dueDate),
                         y: -5
                     }]
                 },
                 text: {
-                    date: this.utils.parseSimpleDate(epic.dueDate),
+                    date: this.utils.parseDate(epic.dueDate),
                     y: 2 * counter,
                     text: epic.summary
                 }

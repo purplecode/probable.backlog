@@ -6,8 +6,13 @@ ChartData.prototype = {
     showLegend: true,
     colorDomain: d3.scale.category20(),
     utils: {
-        parseSimpleDate: d3.time.format("%Y-%m-%d").parse,
-        parseISODate: d3.time.format("%Y-%m-%dT%H:%M:%S.%L000").parse,
+        parseDate : function(text) {
+            if(text.indexOf("T") > -1) {
+                return d3.time.format("%Y-%m-%dT%H:%M:%S.%L").parse(text.replace(/\d\d\d$/, ''));
+            } else {
+                return d3.time.format("%Y-%m-%d").parse(text);
+            }
+        },
         daysBetween: function(date1, date2) {
             var difference = Math.abs(date1.getTime() - date2.getTime());
             return Math.round(difference / (1000 * 60 * 60 * 24));
@@ -20,7 +25,7 @@ ChartData.prototype = {
                 name: statistic,
                 values: timeseries.map(function(entry) {
                     return {
-                        date: this.parseISODate(entry.datetime),
+                        date: this.parseDate(entry.datetime),
                         y: entry[statistic]
                     };
                 }, this)

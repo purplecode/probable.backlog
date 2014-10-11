@@ -11,13 +11,13 @@ ProgressChartData.prototype = _.extend({}, ChartData.prototype, {
         var first = _.first(this.history);
         var last = _.last(this.history);
         var points = [{
-            date: this.utils.parseISODate(first.datetime),
+            date: this.utils.parseDate(first.datetime),
             y: first.current
         }, {
-            date: this.utils.parseSimpleDate(this.dueDate),
+            date: this.utils.parseDate(this.dueDate),
             y: last.total
         }, {
-            date: this.utils.parseSimpleDate(this.dueDate),
+            date: this.utils.parseDate(this.dueDate),
             y: 0
         }];
         return [{
@@ -25,10 +25,10 @@ ProgressChartData.prototype = _.extend({}, ChartData.prototype, {
         }];
     },
     getXDomain: function() {
-        var min = this.utils.parseISODate(_.first(this.history).datetime);
-        var max = this.utils.parseISODate(_.last(this.history).datetime);
+        var min = this.utils.parseDate(_.first(this.history).datetime);
+        var max = this.utils.parseDate(_.last(this.history).datetime);
         if(this.dueDate) {
-            max = d3.max([this.utils.parseSimpleDate(this.dueDate), max])
+            max = d3.max([this.utils.parseDate(this.dueDate), max])
         }
         return [min, max];
     },
