@@ -84,5 +84,5 @@ USE_TZ = True
 STATIC_URL = '/backlog/static/'
 
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
-from django.template.loader import add_to_builtins
+from django.template.base import add_to_builtins
 add_to_builtins('ember.templatetags.ember')
