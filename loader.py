@@ -1,4 +1,4 @@
-import getpass
+import argparse, getpass
 from common.database.Database import Database
 from loader.Jira import Jira
 from loader.settings import settings as projects
@@ -29,8 +29,17 @@ def loadIssues(collection, issues, removeQuery):
 
 
 if __name__ == "__main__":
-  username = raw_input('login: ')
-  password = getpass.getpass('password: ')
+  parser = argparse.ArgumentParser()
+
+  parser.add_argument('-u', '--username', dest='username', default="mjaworsk", help='username')
+  parser.add_argument('-p', '--password', dest='password', help='password')
+ 
+  args = parser.parse_args()
+
+  if not args.password:
+    password = getpass.getpass('password: ')
+  else:
+    password = args.password
 
   database = Database(database='backlog', port=27017).authenticateWithKeyPass('backlog')
 
@@ -40,7 +49,7 @@ if __name__ == "__main__":
     stories = database.getCollection('stories')
     epics = database.getCollection('epics')
 
-    jira = Jira(projectKey, username, password)
+    jira = Jira(projectKey, args.username, password)
     loadIssues(projects, [jira.getProject()], {'key' : projectKey})
     loadIssues(tasks, jira.getTasks(tasks), {'project_key' : projectKey})
     loadIssues(stories, jira.getStories(stories), {'project_key' : projectKey})
