@@ -1,0 +1,3 @@
+[submodule "django-supervisor"]
+	path = django-supervisor
+	url = https://github.com/rfk/django-supervisor
