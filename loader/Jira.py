@@ -15,13 +15,15 @@ class Jira(object):
     return Project(self.jira.project(self.queries['project']))
 
   def getTasks(self, tasks):
-    return [Task(issue, idx, tasks) for idx, issue in enumerate(self.jira.search_issues(self.queries['tasks']))]
+    return [Task(issue, idx, tasks) for idx, issue in enumerate(self.__searchIssues(self.queries['tasks']))]
 
   def getStories(self, stories):
-    epicIds = map(lambda epic: epic.key, self.jira.search_issues(self.queries['epics']))
+    epicIds = map(lambda epic: epic.key, self.__searchIssues(self.queries['epics']))
     storiesQuery = self.queries['stories'] % ",".join(epicIds)
-    print storiesQuery
-    return [Story(issue, idx, stories) for idx, issue in enumerate(self.jira.search_issues(storiesQuery))]
+    return [Story(issue, idx, stories) for idx, issue in enumerate(self.__searchIssues(storiesQuery))]
 
   def getEpics(self, epics, stories):
-    return [Epic(issue, idx, epics, stories) for idx, issue in enumerate(self.jira.search_issues(self.queries['epics']))]
+    return [Epic(issue, idx, epics, stories) for idx, issue in enumerate(self.__searchIssues(self.queries['epics']))]
+
+  def __searchIssues(self, query):
+    return self.jira.search_issues(query, maxResults=500)
