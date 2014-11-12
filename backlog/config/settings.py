@@ -37,8 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ember',
-    'backlog',
-    'djsupervisor'
+    'backlog'
 )
 
 MIDDLEWARE_CLASSES = (

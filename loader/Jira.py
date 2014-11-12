@@ -18,7 +18,10 @@ class Jira(object):
     return [Task(issue, idx, tasks) for idx, issue in enumerate(self.jira.search_issues(self.queries['tasks']))]
 
   def getStories(self, stories):
-    return [Story(issue, idx, stories) for idx, issue in enumerate(self.jira.search_issues(self.queries['stories']))]
+    epicIds = map(lambda epic: epic.key, self.jira.search_issues(self.queries['epics']))
+    storiesQuery = self.queries['stories'] % ",".join(epicIds)
+    print storiesQuery
+    return [Story(issue, idx, stories) for idx, issue in enumerate(self.jira.search_issues(storiesQuery))]
 
   def getEpics(self, epics, stories):
     return [Epic(issue, idx, epics, stories) for idx, issue in enumerate(self.jira.search_issues(self.queries['epics']))]

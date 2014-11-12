@@ -18,6 +18,8 @@ class Issue(object):
 
   def getStatus(self):
     statuses = set([subtask['status'] for subtask in self.getSubtasks()])
+    if not statuses or statuses == set(['Closed']):
+      return 'Closed'
     if not statuses or statuses == set(['Open']):
       return 'Open'
     if statuses == set(['Resolved', 'Closed']):
