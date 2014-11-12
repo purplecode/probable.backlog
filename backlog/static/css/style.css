@@ -55,6 +55,8 @@ th.chart {
   background-color: #fff;
   padding: 0.5em 1em 1em 1em;
   display: block;
+  overflow: auto;
+  max-height: 95vh;
 }
 
 .overlay {
@@ -111,7 +113,7 @@ th.chart {
 }
 
 .backlog-item .content .description{
-  max-height: 50vh;
+  max-height: 45vh;
   overflow: auto;
 }
 
