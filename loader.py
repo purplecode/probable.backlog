@@ -22,6 +22,7 @@ def objToDict(obj):
 
 def loadIssues(collection, issues, removeQuery):
   print collection.fullName()
+  print removeQuery
   collection.remove(removeQuery)
   for issue in issues:
     print issue.getKey()
@@ -52,7 +53,7 @@ if __name__ == "__main__":
     jira = Jira(projectKey, args.username, password)
     loadIssues(projects, [jira.getProject()], {'key' : projectKey})
     loadIssues(tasks, jira.getTasks(tasks), {'project_key' : projectKey})
-    loadIssues(stories, jira.getStories(stories), {'project_key' : projectKey})
+    loadIssues(stories, jira.getStories(stories, tasks), {'project_key' : projectKey})
     loadIssues(epics, jira.getEpics(epics, stories), {'project_key' : projectKey})
 
 
