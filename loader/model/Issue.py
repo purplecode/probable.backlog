@@ -62,7 +62,7 @@ class Issue(object):
             "originalEstimate": fields.aggregatetimeoriginalestimate,
             "progress": self.getProgress(),
             "history": self.getHistory(),
-            #"subtasks": self.getSubtasks(),
+            "subtasks": self.getSubtasks(),
             "parent": self.getParentKey()
         }
 
