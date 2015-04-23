@@ -28,7 +28,7 @@ settings = {
         'stories' : 'project = NDA and issuetype = Story and "Epic Link" in (%s) AND (labels != nobacklog OR labels is empty) ORDER BY Rank ASC',
         'tasks' : 'project = NDA AND (issuetype in (subTaskIssueTypes(), Bug, Improvement, "Technical task")) AND parent in (%s) AND (labels != nobacklog OR labels is empty) ORDER BY Rank ASC'
       }
-    }#,
+    }
     # 'RNTDIM' : {
     #   'name' : 'RAN Dim',
     #   'url' : 'https://jira3.inside.nsn.com',
@@ -38,7 +38,7 @@ settings = {
     #     'stories' : 'project = "RAN Dim" and issuetype = "User Story" and "Epic Link" in (%s) AND (labels != nobacklog OR labels is empty) ORDER BY Rank ASC',
     #     'tasks' : 'project = "RAN Dim" AND (issuetype in (subTaskIssueTypes(), Bug, Improvement, "Technical task")) AND parent in (%s) AND (labels != nobacklog OR labels is empty) ORDER BY Rank ASC'
     #   }
-    # }#,
+    # },
     # 'CSCLOUD': {
     #   'name' : 'Cloud Controller',
     #   'url' : 'https://jira3.inside.nsn.com',

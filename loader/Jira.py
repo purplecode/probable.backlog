@@ -38,6 +38,7 @@ class Jira(object):
         result = []
         for init in xrange(len(parentIds) / pageSize + 1):
             ids = parentIds[init * pageSize:init * pageSize + pageSize]
-            query = queryTmpl % ",".join(ids)
-            result += self.__searchIssues(query)
+            if ids:
+              query = queryTmpl % ",".join(ids)
+              result += self.__searchIssues(query)
         return result
